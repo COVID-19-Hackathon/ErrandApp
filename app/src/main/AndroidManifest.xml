@@ -16,7 +16,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
+            android:value="AIzaSyAjgkEQ711TW-OIs72-lha9xXBD_4GKUX0" />
 
         <activity android:name=".PostErrandActivity" />
         <activity android:name=".NeedErrandActivity" />
