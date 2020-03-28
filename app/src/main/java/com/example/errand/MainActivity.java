@@ -29,6 +29,14 @@ public class MainActivity extends Activity {
             }
         });
 
+        findViewById(R.id.make_errand_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, DoingErrandActivity.class);
+                startActivity(intent);
+            }
+        });
+
         findViewById(R.id.test_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

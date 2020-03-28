@@ -3,6 +3,8 @@ package com.example.errand;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -31,6 +33,27 @@ public class PostErrandActivity extends FragmentActivity implements AddItemDialo
                 AddItemDialog addItemDialog = new AddItemDialog(PostErrandActivity.this);
                 addItemDialog.show(fm, "map_dialog");
 
+            }
+        });
+
+        findViewById(R.id.help_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(PostErrandActivity.this);
+                builder.setMessage("Give a reward to the person who will do the errand. The person will see it and decide if he is willing to do it for you. This reward is in addition to the cost of your products");
+                builder.setCancelable(true);
+
+                builder.setPositiveButton(
+                        "Ok",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+
+
+                AlertDialog alert = builder.create();
+                alert.show();
             }
         });
     }
