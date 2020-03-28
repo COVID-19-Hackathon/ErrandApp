@@ -12,7 +12,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PostErrandActivity extends FragmentActivity implements AddItemDialogListener{
+public class PostErrandRequestActivity extends FragmentActivity implements AddItemDialogListener{
 
     TextView itemsAddedTextView;
     List<Item> itemsAdded = new ArrayList<>();
@@ -21,7 +21,7 @@ public class PostErrandActivity extends FragmentActivity implements AddItemDialo
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_post_errand);
+        setContentView(R.layout.activity_post_errand_request);
 
         itemsAddedTextView = findViewById(R.id.items_text_view);
 
@@ -30,7 +30,7 @@ public class PostErrandActivity extends FragmentActivity implements AddItemDialo
             @Override
             public void onClick(View v) {
                 FragmentManager fm = getSupportFragmentManager();
-                AddItemDialog addItemDialog = new AddItemDialog(PostErrandActivity.this);
+                AddItemDialog addItemDialog = new AddItemDialog(PostErrandRequestActivity.this);
                 addItemDialog.show(fm, "map_dialog");
 
             }
@@ -39,7 +39,7 @@ public class PostErrandActivity extends FragmentActivity implements AddItemDialo
         findViewById(R.id.help_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(PostErrandActivity.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(PostErrandRequestActivity.this);
                 builder.setMessage("Give a reward to the person who will do the errand. The person will see it and decide if he is willing to do it for you. This reward is in addition to the cost of your products");
                 builder.setCancelable(true);
 

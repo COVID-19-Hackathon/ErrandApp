@@ -15,7 +15,7 @@ public class NeedErrandActivity extends Activity {
         findViewById(R.id.post_errand_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(NeedErrandActivity.this, PostErrandActivity.class);
+                Intent intent = new Intent(NeedErrandActivity.this, PostErrandRequestActivity.class);
                 startActivity(intent);
             }
         });

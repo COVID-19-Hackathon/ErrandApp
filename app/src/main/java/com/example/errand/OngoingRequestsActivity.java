@@ -1,5 +1,6 @@
 package com.example.errand;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -51,12 +52,20 @@ public class OngoingRequestsActivity extends FragmentActivity implements OnMapRe
 
     private Map<String, String> markersMap = new HashMap<>();
 
+    private String openMarkerWithName = "";
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ongoing_errands);
+
+        Intent intent = getIntent();
+        if (intent.hasExtra("Name")) {
+            openMarkerWithName = intent.getStringExtra("Name");
+        }
+
 
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -170,6 +179,11 @@ public class OngoingRequestsActivity extends FragmentActivity implements OnMapRe
 
             // TODO: use the whole json or whatever instead of just the name
             markersMap.put(marker.getId(), name);
+
+            if (name.equals(openMarkerWithName)) {
+                marker.showInfoWindow(); // To move the camera there
+                onMarkerClick(marker);
+            }
 
         }
 
