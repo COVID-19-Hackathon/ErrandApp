@@ -1,11 +1,17 @@
 package com.example.errand;
 
+import com.google.firebase.firestore.GeoPoint;
+
 public class ongoingErrand {
     private String ongoingErrandId;
     private String volunteerId;
     private String store;
     private long wait_time;
-    private geoPoint gp;
+    private GeoPoint gp;
+
+    public void setOngoingErrandId(String ongoingErrandId) {
+        this.ongoingErrandId = ongoingErrandId;
+    }
 
     @Override
     public String toString() {
@@ -14,12 +20,12 @@ public class ongoingErrand {
                 "volunteerId= " + volunteerId + '\n' +
                 "store= " + store + '\n' +
                 "wait_time= " + wait_time + '\n' +
-                "latitude = " + gp.getLat() + '\n' +
-                "longitude = " + gp.getLon() + '\n' +
+                "latitude = " + gp.getLatitude() + '\n' +
+                "longitude = " + gp.getLongitude() + '\n' +
                 '}';
     }
 
-    public ongoingErrand(String ongoingErrandId, String volunteerId, String store, long wait_time, geoPoint gp) {
+    public ongoingErrand(String ongoingErrandId, String volunteerId, String store, long wait_time, GeoPoint gp) {
         this.ongoingErrandId = ongoingErrandId;
         this.volunteerId = volunteerId;
         this.store = store;
@@ -43,7 +49,7 @@ public class ongoingErrand {
         return wait_time;
     }
 
-    public geoPoint getGp() {
+    public GeoPoint getGp() {
         return gp;
     }
 }
