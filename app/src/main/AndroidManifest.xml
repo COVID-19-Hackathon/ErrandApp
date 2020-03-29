@@ -11,12 +11,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/MyTheme">
-        <activity android:name=".TestActivity"></activity>
+        <activity android:name=".PostedErrandsActivity" />
         <activity android:name=".OngoingErrandsActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
+            android:value="AIzaSyAjgkEQ711TW-OIs72-lha9xXBD_4GKUX0" />
 
         <activity android:name=".PostErrandRequestActivity" />
         <activity android:name=".NeedErrandActivity" />
