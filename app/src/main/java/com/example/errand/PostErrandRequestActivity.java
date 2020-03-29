@@ -112,7 +112,7 @@ public class PostErrandRequestActivity extends FragmentActivity implements AddIt
         boolean vulnerable = vulnerableRadioButton.isChecked();
 
         EditText rewardEditText = findViewById(R.id.reward_edit_text);
-        String reward = nameEditText.getText().toString();
+        String reward = rewardEditText.getText().toString();
 
         String items = "";
         for (Item item : itemsAdded) {
