@@ -12,10 +12,11 @@ public class ModelErrandRequest {
     private String reward;
     private String ongoingErrandId;
     private String categories;
+    private String personId;
 
     @Override
     public String toString() {
-        return "ErrandRequestModel{" +
+        return "ModelErrandRequest{" +
                 "requesterName='" + requesterName + '\'' +
                 ", requesterPosition=" + requesterPosition +
                 ", acceptedStatus='" + acceptedStatus + '\'' +
@@ -24,10 +25,16 @@ public class ModelErrandRequest {
                 ", reward='" + reward + '\'' +
                 ", ongoingErrandId='" + ongoingErrandId + '\'' +
                 ", categories='" + categories + '\'' +
+                ", personId='" + personId + '\'' +
                 '}';
     }
 
-    public ModelErrandRequest(String requesterName, GeoPoint requesterPosition, String acceptedStatus, boolean requesterIsVulnerable, String items, String reward, String ongoingErrandId, String categories) {
+
+    public String getPersonId() {
+        return personId;
+    }
+
+    public ModelErrandRequest(String requesterName, GeoPoint requesterPosition, String acceptedStatus, boolean requesterIsVulnerable, String items, String reward, String ongoingErrandId, String categories, String personId) {
         this.requesterName = requesterName;
         this.requesterPosition = requesterPosition;
         this.acceptedStatus = acceptedStatus;
@@ -36,6 +43,7 @@ public class ModelErrandRequest {
         this.reward = reward;
         this.ongoingErrandId = ongoingErrandId;
         this.categories = categories;
+        this.personId = personId;
     }
 
     public String getCategories() {

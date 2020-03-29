@@ -150,7 +150,8 @@ public class PostErrandRequestActivity extends FragmentActivity implements AddIt
                 items,
                 reward,
                 mErrandId,
-                categories);
+                categories,
+                ""); // PersonID o be filled here
 
         database.postNewRequest(errandRequest);
 

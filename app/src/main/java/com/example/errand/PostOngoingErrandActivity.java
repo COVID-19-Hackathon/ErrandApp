@@ -124,12 +124,11 @@ public class PostOngoingErrandActivity extends FragmentActivity {
                 "",
                 id,
                 store,
-                1000000,
                 position,
                 categories,
                 name,
                 reward,
-                null
+                "30/03/2020"
         );
 
         database.postOngoingErrands(errandOngoing);
