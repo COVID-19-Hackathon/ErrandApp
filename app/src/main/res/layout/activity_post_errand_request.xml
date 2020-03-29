@@ -7,7 +7,7 @@
     tools:context=".PostErrandRequestActivity">
 
     <TextView
-        android:id="@+id/post_errand_button3"
+        android:id="@+id/post_request"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -22,7 +22,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText4" />
+        app:layout_constraintTop_toBottomOf="@+id/reward_edit_text" />
 
     <TextView
         android:id="@+id/textView6"
@@ -54,7 +54,7 @@
         android:gravity="center"
         android:text="Create a request with a description of what you need. People doing errands will be able to see it, with your location in a map."
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/editText"
+        app:layout_constraintBottom_toTopOf="@+id/name_edit_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
@@ -70,11 +70,11 @@
         android:gravity="center"
         android:text="Categories:"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/checkBox"
+        app:layout_constraintBottom_toTopOf="@+id/groceries_checkbox"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        app:layout_constraintTop_toBottomOf="@+id/name_edit_text" />
 
     <TextView
         android:id="@+id/textView11"
@@ -89,7 +89,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox4" />
+        app:layout_constraintTop_toBottomOf="@+id/cleaning_checkbox" />
 
     <TextView
         android:id="@+id/add_item_button"
@@ -116,9 +116,9 @@
         android:layout_marginLeft="40dp"
         android:text="Your name:"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/editText"
+        app:layout_constraintBottom_toBottomOf="@+id/name_edit_text"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/editText" />
+        app:layout_constraintTop_toTopOf="@+id/name_edit_text" />
 
     <TextView
         android:id="@+id/textView15"
@@ -128,9 +128,9 @@
         android:layout_marginLeft="73dp"
         android:text="Reward:"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/editText4"
+        app:layout_constraintBottom_toBottomOf="@+id/reward_edit_text"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/editText4" />
+        app:layout_constraintTop_toTopOf="@+id/reward_edit_text" />
 
     <TextView
         android:id="@+id/textView13"
@@ -145,7 +145,7 @@
         app:layout_constraintTop_toTopOf="@+id/radioGroup" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/name_edit_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -159,73 +159,73 @@
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
     <EditText
-        android:id="@+id/editText4"
+        android:id="@+id/reward_edit_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="8dp"
         android:ems="10"
-        app:layout_constraintBottom_toTopOf="@+id/post_errand_button3"
+        app:layout_constraintBottom_toTopOf="@+id/post_request"
         app:layout_constraintEnd_toStartOf="@+id/help_button"
         app:layout_constraintStart_toEndOf="@+id/textView15"
         app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
     <CheckBox
-        android:id="@+id/checkBox"
+        android:id="@+id/groceries_checkbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Groceries"
         android:textSize="12sp"
         app:layout_constraintBottom_toTopOf="@+id/textView11"
-        app:layout_constraintEnd_toStartOf="@+id/checkBox3"
+        app:layout_constraintEnd_toStartOf="@+id/food_checkbox"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
     <CheckBox
-        android:id="@+id/checkBox3"
+        android:id="@+id/food_checkbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Food"
         android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@+id/checkBox"
-        app:layout_constraintEnd_toStartOf="@+id/checkBox4"
-        app:layout_constraintStart_toEndOf="@+id/checkBox"
-        app:layout_constraintTop_toTopOf="@+id/checkBox"
+        app:layout_constraintBottom_toBottomOf="@+id/groceries_checkbox"
+        app:layout_constraintEnd_toStartOf="@+id/cleaning_checkbox"
+        app:layout_constraintStart_toEndOf="@+id/groceries_checkbox"
+        app:layout_constraintTop_toTopOf="@+id/groceries_checkbox"
         app:layout_constraintVertical_bias="0.0" />
 
     <CheckBox
-        android:id="@+id/checkBox4"
+        android:id="@+id/cleaning_checkbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Cleaning"
         android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@+id/checkBox3"
-        app:layout_constraintEnd_toStartOf="@+id/checkBox5"
-        app:layout_constraintStart_toEndOf="@+id/checkBox3"
-        app:layout_constraintTop_toTopOf="@+id/checkBox3"
+        app:layout_constraintBottom_toBottomOf="@+id/food_checkbox"
+        app:layout_constraintEnd_toStartOf="@+id/medicine_checkbox"
+        app:layout_constraintStart_toEndOf="@+id/food_checkbox"
+        app:layout_constraintTop_toTopOf="@+id/food_checkbox"
         app:layout_constraintVertical_bias="0.0" />
 
     <CheckBox
-        android:id="@+id/checkBox5"
+        android:id="@+id/medicine_checkbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Medicine"
         android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@+id/checkBox4"
-        app:layout_constraintEnd_toStartOf="@+id/checkBox6"
-        app:layout_constraintStart_toEndOf="@+id/checkBox4"
-        app:layout_constraintTop_toTopOf="@+id/checkBox4" />
+        app:layout_constraintBottom_toBottomOf="@+id/cleaning_checkbox"
+        app:layout_constraintEnd_toStartOf="@+id/other_checkbox"
+        app:layout_constraintStart_toEndOf="@+id/cleaning_checkbox"
+        app:layout_constraintTop_toTopOf="@+id/cleaning_checkbox" />
 
     <CheckBox
-        android:id="@+id/checkBox6"
+        android:id="@+id/other_checkbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Other"
         android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@+id/checkBox5"
+        app:layout_constraintBottom_toBottomOf="@+id/medicine_checkbox"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/checkBox5"
-        app:layout_constraintTop_toTopOf="@+id/checkBox5"
+        app:layout_constraintStart_toEndOf="@+id/medicine_checkbox"
+        app:layout_constraintTop_toTopOf="@+id/medicine_checkbox"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
@@ -248,12 +248,12 @@
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/editText4"
+        app:layout_constraintBottom_toTopOf="@+id/reward_edit_text"
         app:layout_constraintStart_toEndOf="@+id/textView13"
         app:layout_constraintTop_toBottomOf="@+id/items_text_view">
 
         <RadioButton
-            android:id="@+id/radioButton"
+            android:id="@+id/vulnerable_radio_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -274,8 +274,8 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:src="@android:drawable/ic_menu_help"
-        app:layout_constraintBottom_toBottomOf="@+id/editText4"
+        app:layout_constraintBottom_toBottomOf="@+id/reward_edit_text"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/editText4" />
+        app:layout_constraintTop_toTopOf="@+id/reward_edit_text" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

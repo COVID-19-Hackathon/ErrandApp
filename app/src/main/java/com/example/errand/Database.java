@@ -21,10 +21,11 @@ import java.util.List;
 import java.util.Map;
 
 public class Database {
+
     private FirebaseFirestore database = FirebaseFirestore.getInstance();
 
-    public List<ongoingErrand> retreiveOngoingErrands() {
-        final List<ongoingErrand> oeArray = new ArrayList<>();
+    public void retreiveOngoingErrands(final DatabaseListener listener) {
+        final List<ModelErrandOngoing> oeArray = new ArrayList<>();
         database.collection("ongoing_errands")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -36,21 +37,26 @@ public class Database {
                                 String ongoingErrandId =  document.getId();
                                 String volunteerId =  document.getString("volunteer_id");
                                 String store =  document.getString("store");
-                                long waitTime =  document.getLong("wait_time");
                                 GeoPoint gp = document.getGeoPoint("start_gps_position");
-                                ongoingErrand oe = new ongoingErrand(ongoingErrandId,volunteerId,store,waitTime,gp);
+                                String category = document.getString("category");
+                                String name = document.getString("name");
+                                String reward = document.getString("MinimumReward");
+                                String date = document.getString("Date");
+
+                                ModelErrandOngoing oe = new ModelErrandOngoing(ongoingErrandId,volunteerId,store,gp,category,name,reward,date);
                                 oeArray.add(oe);
                             }
+                            listener.onOngoingErrandsFetchComplete(oeArray);
+
                         } else {
                             Log.w("TAG", "Error getting documents.", task.getException());
                         }
                     }
                 });
-            return oeArray;
     }
 
-    public List<errandRequest> retreiveOngoingRequests() {
-        final List<errandRequest> prArray = new ArrayList<>();
+    public void retreiveOngoingRequests(final DatabaseListener databaseListener) {
+        final List<ModelErrandRequest> prArray = new ArrayList<>();
         database.collection("posted_errands")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -59,35 +65,39 @@ public class Database {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d("TAG", document.getId() + " => " + document.getData());
-                                String errandId =  document.getString("errand_id");
-                                String volunteerId =  document.getString("volunteer_id");
-                                String store =  document.getString("store");
-                                long allowedServiceTime =  document.getLong("allowed_service_time");
-                                GeoPoint gp = document.getGeoPoint("start_gps_position");
-                                long distance = document.getLong("rough_total_distance");
-                                long errandCost = document.getLong("errand_cost");
+                                String ongoingErrandId =  document.getString("ongoing_errand_id");
+                                String requesterName =  document.getString("requester_name");
+                                GeoPoint requesterPosition = document.getGeoPoint("requester_position");
+                                String reward = document.getString("reward");
                                 String acceptedStatus = document.getString("accepted_status");
-                                String comments = document.getString("comments");
-                                errandRequest pr = new errandRequest(volunteerId,acceptedStatus,store,allowedServiceTime,comments,errandCost,errandId,distance,gp);
+                                String items = document.getString("items");
+                                boolean requesterIsVulnerable = document.getBoolean("request_is_vulnerable");
+                                String categories = document.getString("categories");
+                                String personId = document.getString("person_id");
+
+                                ModelErrandRequest pr = new ModelErrandRequest(requesterName,requesterPosition,acceptedStatus,requesterIsVulnerable, items, reward,ongoingErrandId,categories, personId);
                                 prArray.add(pr);
                             }
+                            databaseListener.onOngoingRequestsFetchComplete(prArray);
                         } else {
                             Log.w("TAG", "Error getting documents.", task.getException());
                         }
                     }
                 });
-        return prArray;
     }
 
 
-    public void postOngoingErrands(final ongoingErrand oe) {
+    public void postOngoingErrands(final ModelErrandOngoing oe) {
         Map<String, Object> data = new HashMap<>();
         data.put("volunteer_id", oe.getVolunteerId());
         data.put("store", oe.getStore());
-        data.put("start_gps_position", oe.getGp());
+        data.put("start_gps_position", oe.getVolunteerPosition());
         data.put("sys_creation_date", Timestamp.now());
         data.put("sys_update_date", null);
-        data.put("wait_time", oe.getWait_time());
+        data.put("category",oe.getCategory());
+        data.put("MinimumReward",oe.getReward());
+        data.put("Date",oe.getDate());
+        data.put("name",oe.getName());
 
         database.collection("ongoing_errands")
                 .add(data)
@@ -107,20 +117,17 @@ public class Database {
     }
 
 
-    public void postNewRequest(final errandRequest er) {
+    public void postNewRequest(final ModelErrandRequest er) {
         Map<String, Object> data = new HashMap<>();
-        data.put("volunteer_id", er.getVolunteerId());
-        data.put("store", er.getStore());
-        data.put("start_gps_position", er.getStartPos());
-        data.put("sys_creation_date", Timestamp.now());
-        data.put("sys_update_date", null);
-        data.put("allowed_service_time", er.getAllowedServiceTime());
-        data.put("rough_total_distance", er.getDistance());
-        data.put("errand_id", er.getErrandId());
-        data.put("errand_cost",er.getErrandCost());
-        data.put("comments",er.getComments());
-        data.put("accepted_status",er.getAcceptedStatus());
-        data.put("accepted_by",null);
+        data.put("ongoing_errand_id", er.getOngoingErrandId());
+        data.put("requester_name", er.getRequesterName());
+        data.put("requester_position", er.getRequesterPosition());
+        data.put("reward", er.getReward());
+        data.put("accepted_status", er.getAcceptedStatus());
+        data.put("items", er.getItems());
+        data.put("request_is_vulnerable", er.isRequesterIsVulnerable());
+        data.put("categories",er.getCategories());
+        data.put("person_id",er.getPersonId());
 
         database.collection("posted_errands")
                 .add(data)

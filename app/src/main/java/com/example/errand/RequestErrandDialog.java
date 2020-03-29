@@ -14,10 +14,10 @@ import androidx.fragment.app.DialogFragment;
 
 public class RequestErrandDialog extends DialogFragment {
 
-    private String mName;
+    private ModelErrandOngoing mModel;
 
-    public RequestErrandDialog(String name) {
-        mName = name;
+    public RequestErrandDialog(ModelErrandOngoing model) {
+        mModel = model;
     }
 
     @Override
@@ -33,13 +33,26 @@ public class RequestErrandDialog extends DialogFragment {
         View layout = inflater.inflate(R.layout.request_errand_dialog_layout, null);
 
         TextView name = layout.findViewById(R.id.name_text_view);
-        name.setText(mName);
+        name.setText(mModel.getName());
+
+        TextView time = layout.findViewById(R.id.date_text_view);
+        time.setText(mModel.getDate());
+
+        TextView store = layout.findViewById(R.id.store_text_view);
+        store.setText(mModel.getStore());
+
+        TextView reward = layout.findViewById(R.id.reward_text_view);
+        reward.setText(mModel.getReward());
+
+        TextView categories = layout.findViewById(R.id.text_view_categories);
+        categories.setText(mModel.getCategory());
 
         layout.findViewById(R.id.post_request).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 RequestErrandDialog.this.getDialog().cancel();
                 Intent intent = new Intent(getContext(), PostErrandRequestActivity.class);
+                intent.putExtra("ErrandId", mModel.getOngoingErrandId());
                 startActivity(intent);
             }
         });

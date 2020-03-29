@@ -40,6 +40,24 @@ public class PostedErrandsActivity extends Activity {
 
         final LinearLayout posted_req_layout = findViewById(R.id.posted_reqs_layout);
 
+        /*Database databaseManager = new Database();
+        databaseManager.retreiveOngoingErrands(new DatabaseListener() {
+            @Override
+            public void onOngoingErrandsFetchComplete(List<ModelErrandOngoing> list) {
+                for (ModelErrandOngoing errand : list) {
+
+
+                }
+            }
+
+            @Override
+            public void onOngoingRequestsFetchComplete(List<ModelErrandRequest> list) {
+
+            }
+        });*/
+
+
+
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("posted_errands")
 //                .whereEqualTo("volunteer_id", 1)
@@ -50,7 +68,6 @@ public class PostedErrandsActivity extends Activity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                System.out.println("Mothil");
                                 Button textButton = new Button(getActivity());
                                 String store = (String) document.get("store");
                                 String comments = (String) document.get("comments");
@@ -103,7 +120,6 @@ public class PostedErrandsActivity extends Activity {
 //                                Log.d(TAG, document.getId() + " => " + document.getData());
                             }
                         } else {
-                            System.out.println("PRABU");
 //                            Log.d(TAG, "Error getting documents: ", task.getException());
                         }
                     }

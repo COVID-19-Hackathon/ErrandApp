@@ -9,13 +9,16 @@ import android.app.Activity;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -80,8 +83,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         super.onStart();
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         if (account != null) {
-            Log.e("TAG", account.getId());
-            Toast.makeText(this, "Signed as " + account.getEmail(), Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, "Signed as " + account.getEmail(), Toast.LENGTH_LONG).show();
             showSignIn(false);
         } else {
             showSignIn(true);
@@ -119,6 +121,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
             Log.e("TAG", account.getId());
+
+            SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putString("AccountID", account.getId());
+            editor.apply();
+
             Toast.makeText(this, "Signed as " + account.getEmail(), Toast.LENGTH_LONG).show();
             showSignIn(false);
         } catch (ApiException e) {
@@ -165,7 +173,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         // Create an explicit intent for an Activity in your app
         Intent intent = new Intent(this, OngoingRequestsActivity.class);
-        intent.putExtra("Name", "Mike");
+        intent.putExtra("Name", "Shreyas");
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
 
@@ -174,26 +182,26 @@ public class MainActivity extends Activity implements View.OnClickListener {
         Bitmap b = BitmapFactory.decodeResource(getResources(), R.drawable.map_icon);
         Bitmap smallerIcon = Bitmap.createScaledBitmap(b, width, height, false);
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
+        /*NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setSmallIcon(R.drawable.e)
                 .setContentTitle("Errand request")
                 .setStyle(new NotificationCompat.BigTextStyle()
-                        .bigText("Mike just sent you an errand request! Click to see it"))
+                        .bigText("Shreyas just sent you an errand request! Click to see it"))
                 .setContentIntent(pendingIntent)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setLargeIcon(smallerIcon)
-                .setAutoCancel(true);
+                .setAutoCancel(true);*/
 
 
-        /*NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setSmallIcon(R.drawable.e)
                 .setContentTitle("Errand accepted")
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setLargeIcon(smallerIcon)
                 .setStyle(new NotificationCompat.BigTextStyle()
-                        .bigText("Tom will do the errand you requested, he will be going to Target at 9pm, you should get your stuff sometime later that day!"));
+                        .bigText("Mothil will do the errand you requested, he will be going to Target at 9pm, you should get your stuff sometime later that day!"));
 
-         */
+
         // Show:
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
         // notificationId is a unique int for each notification that you must define

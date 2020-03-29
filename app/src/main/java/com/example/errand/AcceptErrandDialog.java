@@ -2,7 +2,6 @@ package com.example.errand;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,12 +11,14 @@ import android.widget.TextView;
 
 import androidx.fragment.app.DialogFragment;
 
+import org.w3c.dom.Text;
+
 public class AcceptErrandDialog extends DialogFragment {
 
-    private String mName;
+    private ModelErrandRequest mModel;
 
-    public AcceptErrandDialog(String name) {
-        mName = name;
+    public AcceptErrandDialog(ModelErrandRequest model) {
+        mModel = model;
     }
 
     @Override
@@ -33,7 +34,23 @@ public class AcceptErrandDialog extends DialogFragment {
         View layout = inflater.inflate(R.layout.accept_errand_dialog_layout, null);
 
         TextView name = layout.findViewById(R.id.name_text_view);
-        name.setText(mName);
+        name.setText(mModel.getRequesterName());
+
+        TextView time = layout.findViewById(R.id.items_text_view);
+        time.setText(mModel.getItems());
+
+        TextView store = layout.findViewById(R.id.reward_text_view);
+        store.setText(mModel.getReward());
+
+        TextView reward = layout.findViewById(R.id.text_view_categories);
+        reward.setText(mModel.getCategories());
+
+        TextView vulnerable = layout.findViewById(R.id.vulnerable_text);
+        if (mModel.isRequesterIsVulnerable()) {
+            vulnerable.setVisibility(View.VISIBLE);
+        } else {
+            vulnerable.setVisibility(View.INVISIBLE);
+        }
 
         layout.findViewById(R.id.post_request).setOnClickListener(new View.OnClickListener() {
             @Override

@@ -76,7 +76,7 @@
         android:layout_marginTop="15dp"
         android:text="Name: "
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView20" />
+        app:layout_constraintTop_toBottomOf="@+id/vulnerable_text" />
 
     <TextView
         android:id="@+id/name_text_view"
@@ -98,11 +98,12 @@
         app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
     <TextView
-        android:id="@+id/time_text_view"
-        android:layout_width="wrap_content"
+        android:id="@+id/items_text_view"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="10dp"
         android:text="1 water bottle, 1 toilet paper"
+        android:textAlignment="viewStart"
         app:layout_constraintBottom_toBottomOf="@+id/textView19"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/name_text_view"
@@ -118,12 +119,13 @@
         app:layout_constraintTop_toBottomOf="@+id/textView19" />
 
     <TextView
-        android:id="@+id/store_text_view"
-        android:layout_width="wrap_content"
+        android:id="@+id/reward_text_view"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="$ 20"
+        android:textAlignment="viewStart"
         app:layout_constraintBottom_toBottomOf="@+id/textView22"
-        app:layout_constraintStart_toStartOf="@+id/time_text_view"
+        app:layout_constraintStart_toStartOf="@+id/items_text_view"
         app:layout_constraintTop_toTopOf="@+id/textView22" />
 
     <TextView
@@ -149,7 +151,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView24" />
 
     <TextView
-        android:id="@+id/textView20"
+        android:id="@+id/vulnerable_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
