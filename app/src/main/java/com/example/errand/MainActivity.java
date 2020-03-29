@@ -64,13 +64,13 @@ public class MainActivity extends Activity implements View.OnClickListener {
             }
         });
 
-        findViewById(R.id.test_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, TestActivity.class);
-                startActivity(intent);
-            }
-        });
+//        findViewById(R.id.test_button).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(MainActivity.this, TestActivity.class);
+//                startActivity(intent);
+//            }
+//        });
 
 
         createNotificationChannel();
