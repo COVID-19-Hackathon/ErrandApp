@@ -151,7 +151,7 @@ public class PostErrandRequestActivity extends FragmentActivity implements AddIt
                 vulnerable,
                 items,
                 reward,
-                mErrandId);
+                mErrandId, categories);
 
         database.postNewRequest(errandRequest);
 
