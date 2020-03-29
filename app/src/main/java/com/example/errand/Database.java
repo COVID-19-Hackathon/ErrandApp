@@ -66,16 +66,15 @@ public class Database {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d("TAG", document.getId() + " => " + document.getData());
-                                String errandId =  document.getString("errand_id");
-                                String volunteerId =  document.getString("volunteer_id");
-                                String store =  document.getString("store");
-                                long allowedServiceTime =  document.getLong("allowed_service_time");
-                                GeoPoint gp = document.getGeoPoint("start_gps_position");
-                                long distance = document.getLong("rough_total_distance");
-                                long errandCost = document.getLong("errand_cost");
+                                String ongoingErrandId =  document.getString("ongoing_errand_id");
+                                String requesterName =  document.getString("requester_name");
+                                GeoPoint requesterPosition = document.getGeoPoint("requester_position");
+                                String reward = document.getString("reward");
                                 String acceptedStatus = document.getString("accepted_status");
-                                String comments = document.getString("comments");
-                                ErrandRequestModel pr = new ErrandRequestModel(volunteerId,acceptedStatus,store,allowedServiceTime,comments,errandCost,errandId,distance,gp);
+                                String items = document.getString("items");
+                                boolean requesterIsVulnerable = document.getBoolean("request_is_vulnerable");
+
+                                ErrandRequestModel pr = new ErrandRequestModel(requesterName,requesterPosition,acceptedStatus,requesterIsVulnerable, items, reward,ongoingErrandId);
                                 prArray.add(pr);
                             }
                         } else {
@@ -120,18 +119,13 @@ public class Database {
 
     public void postNewRequest(final ErrandRequestModel er) {
         Map<String, Object> data = new HashMap<>();
-        data.put("volunteer_id", er.getVolunteerId());
-        data.put("store", er.getStore());
-        data.put("start_gps_position", er.getStartPos());
-        data.put("sys_creation_date", Timestamp.now());
-        data.put("sys_update_date", null);
-        data.put("allowed_service_time", er.getAllowedServiceTime());
-        data.put("rough_total_distance", er.getDistance());
-        data.put("errand_id", er.getErrandId());
-        data.put("errand_cost",er.getErrandCost());
-        data.put("comments",er.getComments());
-        data.put("accepted_status",er.getAcceptedStatus());
-        data.put("accepted_by",null);
+        data.put("ongoing_errand_id", er.getOngoingErrandId());
+        data.put("requester_name", er.getRequesterName());
+        data.put("requester_position", er.getRequesterPosition());
+        data.put("reward", er.getReward());
+        data.put("accepted_status", er.getAcceptedStatus());
+        data.put("items", er.getItems());
+        data.put("request_is_vulnerable", er.isRequesterIsVulnerable());
 
         database.collection("posted_errands")
                 .add(data)

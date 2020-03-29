@@ -9,79 +9,58 @@ public class ErrandRequestModel {
     private String acceptedStatus;
     private boolean requesterIsVulnerable;
     private String items;
-    private String reward;
-    private String ongoingErrandId;
 
     @Override
     public String toString() {
-        return "errandRequest{" +
-                "volunteerId='" + volunteerId + '\'' +
+        return "ErrandRequestModel{" +
+                "requesterName='" + requesterName + '\'' +
+                ", requesterPosition=" + requesterPosition +
                 ", acceptedStatus='" + acceptedStatus + '\'' +
-                ", store='" + store + '\'' +
-                ", allowedServiceTime=" + allowedServiceTime +
-                ", comments='" + comments + '\'' +
-                ", errandCost=" + errandCost +
-                ", errandId='" + errandId + '\'' +
-                ", distance=" + distance +
-                ", startPos=" + startPos +
+                ", requesterIsVulnerable=" + requesterIsVulnerable +
+                ", items='" + items + '\'' +
+                ", reward='" + reward + '\'' +
+                ", ongoingErrandId='" + ongoingErrandId + '\'' +
                 '}';
     }
 
+    private String reward;
+    private String ongoingErrandId;
 
-
-    public ErrandRequestModel(String volunteerId, String acceptedStatus, String store, long allowedServiceTime, String comments, long errandCost, String errandId, long distance, GeoPoint startPos) {
-        this.volunteerId = volunteerId;
-        this.acceptedStatus = acceptedStatus;
-        this.store = store;
-        this.allowedServiceTime = allowedServiceTime;
-        this.comments = comments;
-        this.errandCost = errandCost;
-        this.errandId = errandId;
-        this.distance = distance;
-        this.startPos = startPos;
+    public String getRequesterName() {
+        return requesterName;
     }
 
-    public void setVolunteerId(String volunteerId) {
-        this.volunteerId = volunteerId;
-    }
-
-    public void setErrandId(String errandId) {
-        this.errandId = errandId;
-    }
-
-    public String getVolunteerId() {
-        return volunteerId;
+    public GeoPoint getRequesterPosition() {
+        return requesterPosition;
     }
 
     public String getAcceptedStatus() {
         return acceptedStatus;
     }
 
-    public String getStore() {
-        return store;
+    public boolean isRequesterIsVulnerable() {
+        return requesterIsVulnerable;
     }
 
-    public long getAllowedServiceTime() {
-        return allowedServiceTime;
+    public String getItems() {
+        return items;
     }
 
-    public String getComments() {
-        return comments;
+    public String getReward() {
+        return reward;
     }
 
-    public long getErrandCost() {
-        return errandCost;
+    public String getOngoingErrandId() {
+        return ongoingErrandId;
     }
 
-    public String getErrandId() {
-        return errandId;
-    }
-
-    public long getDistance() {
-        return distance;
-    }
-
-    public GeoPoint getStartPos() {
-        return startPos;
+    public ErrandRequestModel(String requesterName, GeoPoint requesterPosition, String acceptedStatus, boolean requesterIsVulnerable, String items, String reward, String ongoingErrandId) {
+        this.requesterName = requesterName;
+        this.requesterPosition = requesterPosition;
+        this.acceptedStatus = acceptedStatus;
+        this.requesterIsVulnerable = requesterIsVulnerable;
+        this.items = items;
+        this.reward = reward;
+        this.ongoingErrandId = ongoingErrandId;
     }
 }
