@@ -1,5 +1,6 @@
 package com.example.errand;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +18,6 @@ public class PostErrandRequestActivity extends FragmentActivity implements AddIt
 
     TextView itemsAddedTextView;
     List<Item> itemsAdded = new ArrayList<>();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

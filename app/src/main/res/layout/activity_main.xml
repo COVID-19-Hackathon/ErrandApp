@@ -91,7 +91,8 @@
         android:layout_height="80dp"
         android:layout_marginStart="31dp"
         android:layout_marginTop="7dp"
-        android:text="TEST"
+        android:background="#FFFFFF"
+        android:text="PostErrand"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
