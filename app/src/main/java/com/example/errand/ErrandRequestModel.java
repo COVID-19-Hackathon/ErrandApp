@@ -3,9 +3,14 @@ package com.example.errand;
 import com.google.firebase.firestore.GeoPoint;
 
 public class ErrandRequestModel {
-    private String volunteerId;
+
+    private String requesterName;
+    private GeoPoint requesterPosition;
     private String acceptedStatus;
-    private String store;
+    private boolean requesterIsVulnerable;
+    private String items;
+    private String reward;
+    private String ongoingErrandId;
 
     @Override
     public String toString() {
@@ -22,12 +27,7 @@ public class ErrandRequestModel {
                 '}';
     }
 
-    private long allowedServiceTime;
-    private String comments;
-    private long errandCost;
-    private String errandId;
-    private long distance;
-    private GeoPoint startPos;
+
 
     public ErrandRequestModel(String volunteerId, String acceptedStatus, String store, long allowedServiceTime, String comments, long errandCost, String errandId, long distance, GeoPoint startPos) {
         this.volunteerId = volunteerId;

@@ -91,7 +91,7 @@ public class Database {
         Map<String, Object> data = new HashMap<>();
         data.put("volunteer_id", oe.getVolunteerId());
         data.put("store", oe.getStore());
-        data.put("start_gps_position", oe.getGp());
+        data.put("start_gps_position", oe.getVolunteerPosition());
         data.put("sys_creation_date", Timestamp.now());
         data.put("sys_update_date", null);
         data.put("wait_time", oe.getWait_time());

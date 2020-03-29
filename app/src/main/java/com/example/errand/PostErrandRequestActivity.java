@@ -8,6 +8,9 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 
@@ -57,6 +60,57 @@ public class PostErrandRequestActivity extends FragmentActivity implements AddIt
                 alert.show();
             }
         });
+
+        findViewById(R.id.post_request).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                postRequest();
+                onBackPressed();
+            }
+        });
+    }
+
+    private void postRequest() {
+        EditText nameEditText = findViewById(R.id.name_edit_text);
+        String name = nameEditText.getText().toString();
+
+        String categories = "";
+        CheckBox groceriesCheckbox = findViewById(R.id.groceries_checkbox);
+        if (groceriesCheckbox.isChecked()) {
+            categories = categories + "Groceries";
+        }
+        CheckBox foodCheckbox = findViewById(R.id.food_checkbox);
+        if (foodCheckbox.isChecked()) {
+            String separator = categories.equals("") ? "" : " - ";
+            categories = categories + separator +  "Food";
+        }
+        CheckBox medicineCheckbox = findViewById(R.id.medicine_checkbox);
+        if (medicineCheckbox.isChecked()) {
+            String separator = categories.equals("") ? "" : " - ";
+            categories = categories + separator +  "Medicine";
+        }
+        CheckBox cleaningCheckbox = findViewById(R.id.cleaning_checkbox);
+        if (cleaningCheckbox.isChecked()) {
+            String separator = categories.equals("") ? "" : " - ";
+            categories = categories + separator +  "Cleaning";
+        }
+        CheckBox otherCheckbox = findViewById(R.id.other_checkbox);
+        if (otherCheckbox.isChecked()) {
+            String separator = categories.equals("") ? "" : " - ";
+            categories = categories + separator +  "Other";
+        }
+
+        RadioButton vulnerableRadioButton = findViewById(R.id.vulnerable_radio_button);
+        boolean vulnerable = vulnerableRadioButton.isChecked();
+
+        EditText rewardEditText = findViewById(R.id.reward_edit_text);
+        String reward = nameEditText.getText().toString();
+
+        //ErrandRequestModel errandRequest = new ErrandRequestModel()
+
+
+
+
     }
 
     @Override

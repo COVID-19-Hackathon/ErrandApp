@@ -13,7 +13,6 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
 import android.util.Log;
-import android.util.Pair;
 
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -30,6 +29,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.gms.location.FusedLocationProviderClient;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -42,6 +42,8 @@ public class OngoingErrandsActivity extends FragmentActivity implements OnMapRea
 
     private FusedLocationProviderClient mFusedLocationProviderClient;
 
+    private Database database;
+
     // A default location (Sydney, Australia) and default zoom to use when location permission is
     // not granted.
     private final LatLng mDefaultLocation = new LatLng(-33.8523341, 151.2106085);
@@ -51,7 +53,7 @@ public class OngoingErrandsActivity extends FragmentActivity implements OnMapRea
     // location retrieved by the Fused Location Provider.
     private Location mLastKnownLocation;
 
-    private Map<String, String> markersMap = new HashMap<>();
+    private Map<String, OngoingErrandModel> markersMap = new HashMap<>();
 
 
 
@@ -67,6 +69,8 @@ public class OngoingErrandsActivity extends FragmentActivity implements OnMapRea
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        database = new Database();
     }
 
     private void checkLocationPermission() {
@@ -105,7 +109,7 @@ public class OngoingErrandsActivity extends FragmentActivity implements OnMapRea
         // Get the current location of the device and set the position of the map.
         getDeviceLocation();
 
-        updateNearbyErrands();
+        getNearbyErrands();
     }
 
     /**
@@ -145,14 +149,26 @@ public class OngoingErrandsActivity extends FragmentActivity implements OnMapRea
         }
     }
 
-    private void updateNearbyErrands() {
+    private void updateNearbyErrands(List<OngoingErrandModel> errandsList) {
         int height = 100;
         int width = 100;
         Bitmap b = BitmapFactory.decodeResource(getResources(), R.drawable.map_icon);
         Bitmap smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
         BitmapDescriptor smallMarkerIcon = BitmapDescriptorFactory.fromBitmap(smallMarker);
 
-        HashMap<String, Pair<Float, Float>> map = getNearbyErrands();
+        for (OngoingErrandModel model : errandsList) {
+
+            double latitude = model.getVolunteerPosition().getLatitude();
+            double longitude = model.getVolunteerPosition().getLongitude();
+            Marker marker = mMap.addMarker(new MarkerOptions()
+                    .position(new LatLng(latitude, longitude))
+                    .icon(smallMarkerIcon));
+
+            markersMap.put(marker.getId(), model);
+
+        }
+
+        /*HashMap<String, Pair<Float, Float>> map = getNearbyErrands();
         for (Map.Entry<String, Pair<Float, Float>> entry : map.entrySet()) {
             String name =  entry.getKey();
             Pair<Float, Float> pair = entry.getValue();
@@ -160,27 +176,33 @@ public class OngoingErrandsActivity extends FragmentActivity implements OnMapRea
             Marker marker = mMap.addMarker(new MarkerOptions()
                     .position(new LatLng(pair.first, pair.second))
                     .icon(smallMarkerIcon));
-
-            // TODO: use the whole json or whatever instead of just the name
             markersMap.put(marker.getId(), name);
 
-        }
+        } */
 
     }
 
-    private HashMap<String, Pair<Float, Float>> getNearbyErrands() {
-        HashMap<String, Pair<Float, Float>> map = new HashMap<>();
+    private void getNearbyErrands() {
+
+        database.retreiveOngoingErrands(new DatabaseListener() {
+            @Override
+            public void onOngoingErrandsFetchComplete(List<OngoingErrandModel> list) {
+                updateNearbyErrands(list);
+            }
+        });
+
+        /*HashMap<String, Pair<Float, Float>> map = new HashMap<>();
         map.put("Mike", new Pair<>(37.426f,  -121.888f));
         map.put("Tom", new Pair<>(37.423f, -121.886f));
         map.put("Susan", new Pair<>(37.417f, -121.885f));
-        return map;
+        return map;*/
     }
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-        String name = markersMap.get(marker.getId());
+        OngoingErrandModel model = markersMap.get(marker.getId());
         FragmentManager fm = getSupportFragmentManager();
-        RequestErrandDialog alertDialog = new RequestErrandDialog(name);
+        RequestErrandDialog alertDialog = new RequestErrandDialog(model);
         alertDialog.show(fm, "map_dialog");
         return false;
     }

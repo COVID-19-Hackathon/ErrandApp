@@ -133,7 +133,7 @@
         app:layout_constraintTop_toTopOf="@+id/textView22" />
 
     <TextView
-        android:id="@+id/store_text_view2"
+        android:id="@+id/reward_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"

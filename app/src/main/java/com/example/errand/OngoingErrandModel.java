@@ -8,7 +8,7 @@ public class OngoingErrandModel {
     private String volunteerId;
     private String store;
     private long wait_time;
-    private GeoPoint gp;
+    private GeoPoint volunteerPosition;
     private String category;
     private String name;
     private String reward;
@@ -25,7 +25,7 @@ public class OngoingErrandModel {
                 ", volunteerId='" + volunteerId + '\'' +
                 ", store='" + store + '\'' +
                 ", wait_time=" + wait_time +
-                ", gp=" + gp +
+                ", gp=" + volunteerPosition +
                 ", category='" + category + '\'' +
                 ", name='" + name + '\'' +
                 ", reward=" + reward +
@@ -33,12 +33,12 @@ public class OngoingErrandModel {
                 '}';
     }
 
-    public OngoingErrandModel(String ongoingErrandId, String volunteerId, String store, long wait_time, GeoPoint gp, String category, String name, String reward, Timestamp time) {
+    public OngoingErrandModel(String ongoingErrandId, String volunteerId, String store, long wait_time, GeoPoint voulnteerPosition, String category, String name, String reward, Timestamp time) {
         this.ongoingErrandId = ongoingErrandId;
         this.volunteerId = volunteerId;
         this.store = store;
         this.wait_time = wait_time;
-        this.gp = gp;
+        this.volunteerPosition = voulnteerPosition;
         this.category = category;
         this.name = name;
         this.reward = reward;
@@ -77,7 +77,7 @@ public class OngoingErrandModel {
         return wait_time;
     }
 
-    public GeoPoint getGp() {
-        return gp;
+    public GeoPoint getVolunteerPosition() {
+        return volunteerPosition;
     }
 }
