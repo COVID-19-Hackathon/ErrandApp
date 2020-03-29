@@ -28,7 +28,7 @@ public class NeedErrandActivity extends Activity {
             }
         });
 
-        findViewById(R.id.see_requests_button).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.see_errands_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(NeedErrandActivity.this, PostedErrandsActivity.class);
