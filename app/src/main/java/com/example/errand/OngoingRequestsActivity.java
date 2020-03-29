@@ -61,7 +61,7 @@ public class OngoingRequestsActivity extends FragmentActivity implements OnMapRe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ongoing_errands);
+        setContentView(R.layout.activity_ongoing_requests);
 
         Intent intent = getIntent();
         if (intent.hasExtra("Name")) {

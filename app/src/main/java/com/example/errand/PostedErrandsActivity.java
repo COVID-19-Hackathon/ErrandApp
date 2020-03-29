@@ -14,18 +14,8 @@ import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import androidx.annotation.NonNull;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.List;
 
@@ -38,7 +28,7 @@ public class PostedErrandsActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_posted_requests);
+        setContentView(R.layout.activity_posted_errands);
 
         final LinearLayout posted_req_layout = findViewById(R.id.posted_reqs_layout);
 
@@ -46,21 +36,16 @@ public class PostedErrandsActivity extends Activity {
         databaseManager.retreiveOngoingErrands(new DatabaseListener() {
             @Override
             public void onOngoingErrandsFetchComplete(List<ModelErrandOngoing> list) {
-            }
+                for (ModelErrandOngoing errand : list) {
+                    String items = errand.getStore();
+                    String categories = errand.getDate();
+                    String status = "";
 
-            @Override
-            public void onOngoingRequestsFetchComplete(List<ModelErrandRequest> list) {
-                for (ModelErrandRequest errand : list) {
-                    Button textButton = new Button(getActivity());
-                    String store = errand.getRequesterName();
-                    String comments = errand.getCategories();
-                    String status = errand.getAcceptedStatus();
-
-                    Spannable store_span = new SpannableString(store);
+                    Spannable store_span = new SpannableString(items);
                     store_span.setSpan(new StyleSpan(Typeface.BOLD), 0, store_span.length(), store_span.SPAN_EXCLUSIVE_EXCLUSIVE);
                     store_span.setSpan(new ForegroundColorSpan(Color.parseColor("#1f6d43")), 0, store_span.length(), store_span.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-                    Spannable comments_span = new SpannableString(comments);
+                    Spannable comments_span = new SpannableString(categories);
                     comments_span.setSpan(new ForegroundColorSpan(Color.parseColor("#1f6d43")), 0, comments_span.length(), comments_span.SPAN_EXCLUSIVE_EXCLUSIVE);
 
                     Spannable status_span = new SpannableString(status);
@@ -101,11 +86,11 @@ public class PostedErrandsActivity extends Activity {
 
                     posted_req_layout.addView(buttonLayout);
 
-
-
                 }
-
             }
+
+            @Override
+            public void onOngoingRequestsFetchComplete(List<ModelErrandRequest> list) {}
         });
 
 

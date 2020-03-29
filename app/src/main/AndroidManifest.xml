@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/MyTheme">
-        <activity android:name=".PostedErrandsActivity" />
+        <activity android:name=".PostedRequestsActivity" />
         <activity android:name=".OngoingErrandsActivity" />
 
         <meta-data
@@ -30,6 +30,7 @@
         <activity android:name=".OngoingRequestsActivity" />
         <activity android:name=".DoingErrandActivity" />
         <activity android:name=".PostOngoingErrandActivity" />
+        <activity android:name=".PostedErrandsActivity" />
     </application>
 
 </manifest>
