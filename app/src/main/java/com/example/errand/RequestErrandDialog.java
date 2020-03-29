@@ -52,6 +52,7 @@ public class RequestErrandDialog extends DialogFragment {
             public void onClick(View v) {
                 RequestErrandDialog.this.getDialog().cancel();
                 Intent intent = new Intent(getContext(), PostErrandRequestActivity.class);
+                intent.putExtra("ErrandId", mModel.getOngoingErrandId());
                 startActivity(intent);
             }
         });

@@ -14,6 +14,8 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 
+import com.google.firebase.firestore.GeoPoint;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,11 +23,17 @@ public class PostErrandRequestActivity extends FragmentActivity implements AddIt
 
     TextView itemsAddedTextView;
     List<Item> itemsAdded = new ArrayList<>();
+    String mErrandId = "";
+    Database database = new Database();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_errand_request);
+
+        if (getIntent().hasExtra("ErrandId")) {
+            mErrandId = getIntent().getStringExtra("ErrandId");
+        }
 
         itemsAddedTextView = findViewById(R.id.items_text_view);
 
@@ -106,10 +114,24 @@ public class PostErrandRequestActivity extends FragmentActivity implements AddIt
         EditText rewardEditText = findViewById(R.id.reward_edit_text);
         String reward = nameEditText.getText().toString();
 
-        //ErrandRequestModel errandRequest = new ErrandRequestModel()
+        String items = "";
+        for (Item item : itemsAdded) {
+            String separator = items.equals("") ? "" : " , ";
+            items = items + separator + item.toString();
+        }
 
+        GeoPoint position = new GeoPoint(80, 80);
 
+        ErrandRequestModel errandRequest = new ErrandRequestModel(
+                name,
+                position,
+                "PENDING",
+                vulnerable,
+                items,
+                reward,
+                mErrandId);
 
+        database.postNewRequest(errandRequest);
 
     }
 
