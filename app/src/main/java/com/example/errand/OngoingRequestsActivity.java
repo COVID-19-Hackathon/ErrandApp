@@ -29,6 +29,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -50,9 +51,11 @@ public class OngoingRequestsActivity extends FragmentActivity implements OnMapRe
     // location retrieved by the Fused Location Provider.
     private Location mLastKnownLocation;
 
-    private Map<String, String> markersMap = new HashMap<>();
+    private Map<String, ModelErrandRequest> markersMap = new HashMap<>();
 
     private String openMarkerWithName = "";
+
+    private Database database = new Database();
 
 
 
@@ -112,7 +115,7 @@ public class OngoingRequestsActivity extends FragmentActivity implements OnMapRe
         // Get the current location of the device and set the position of the map.
         getDeviceLocation();
 
-        updateNearbyRequests();
+        getNearbyRequests();
     }
 
     /**
@@ -152,56 +155,57 @@ public class OngoingRequestsActivity extends FragmentActivity implements OnMapRe
         }
     }
 
-    private void updateNearbyRequests() {
-        HashMap<String, Pair<Float, Float>> map = getNearbyRequests();
-        for (Map.Entry<String, Pair<Float, Float>> entry : map.entrySet()) {
-            String name =  entry.getKey();
-            Pair<Float, Float> pair = entry.getValue();
-
-            Marker marker;
-
+    private void updateNearbyRequests(List<ModelErrandRequest> list) {
+        for (ModelErrandRequest model : list) {
 
             int height = 100;
             int width = 100;
             Bitmap b;
 
-            if(name.equals("Tom")) {
+            if(model.isRequesterIsVulnerable()) {
                 b = BitmapFactory.decodeResource(getResources(), R.drawable.map_icon_vuln);
             } else {
                 b = BitmapFactory.decodeResource(getResources(), R.drawable.map_icon);
             }
+
             Bitmap smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
             BitmapDescriptor smallMarkerIcon = BitmapDescriptorFactory.fromBitmap(smallMarker);
 
-            marker = mMap.addMarker(new MarkerOptions()
-                    .position(new LatLng(pair.first, pair.second))
+            double latitude = model.getRequesterPosition().getLatitude();
+            double longitude = model.getRequesterPosition().getLongitude();
+            Marker marker = mMap.addMarker(new MarkerOptions()
+                    .position(new LatLng(latitude, longitude))
                     .icon(smallMarkerIcon));
 
-            // TODO: use the whole json or whatever instead of just the name
-            markersMap.put(marker.getId(), name);
+            markersMap.put(marker.getId(), model);
 
-            if (name.equals(openMarkerWithName)) {
+            //TODO: change this to the identifier for the notification
+            if (model.getRequesterName().equals(openMarkerWithName)) {
                 marker.showInfoWindow(); // To move the camera there
                 onMarkerClick(marker);
             }
 
         }
-
     }
 
-    private HashMap<String, Pair<Float, Float>> getNearbyRequests() {
-        HashMap<String, Pair<Float, Float>> map = new HashMap<>();
-        map.put("Mike", new Pair<>(37.426f,  -121.888f));
-        map.put("Tom", new Pair<>(37.423f, -121.886f));
-        map.put("Susan", new Pair<>(37.417f, -121.885f));
-        return map;
+    private void getNearbyRequests() {
+
+        database.retreiveOngoingRequests(new DatabaseListener() {
+            @Override
+            public void onOngoingErrandsFetchComplete(List<ModelErrandOngoing> list) {}
+
+            @Override
+            public void onOngoingRequestsFetchComplete(List<ModelErrandRequest> list) {
+                updateNearbyRequests(list);
+            }
+        });
     }
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-        String name = markersMap.get(marker.getId());
+        ModelErrandRequest model = markersMap.get(marker.getId());
         FragmentManager fm = getSupportFragmentManager();
-        AcceptErrandDialog alertDialog = new AcceptErrandDialog(name);
+        AcceptErrandDialog alertDialog = new AcceptErrandDialog(model);
         alertDialog.show(fm, "map_dialog");
         return false;
     }

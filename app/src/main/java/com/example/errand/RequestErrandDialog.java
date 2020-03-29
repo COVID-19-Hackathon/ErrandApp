@@ -14,9 +14,9 @@ import androidx.fragment.app.DialogFragment;
 
 public class RequestErrandDialog extends DialogFragment {
 
-    private OngoingErrandModel mModel;
+    private ModelErrandOngoing mModel;
 
-    public RequestErrandDialog(OngoingErrandModel model) {
+    public RequestErrandDialog(ModelErrandOngoing model) {
         mModel = model;
     }
 
@@ -35,7 +35,7 @@ public class RequestErrandDialog extends DialogFragment {
         TextView name = layout.findViewById(R.id.name_text_view);
         name.setText(mModel.getName());
 
-        TextView time = layout.findViewById(R.id.time_text_view);
+        TextView time = layout.findViewById(R.id.items_text_view);
         time.setText(mModel.getTime().toDate().toString());
 
         TextView store = layout.findViewById(R.id.store_text_view);

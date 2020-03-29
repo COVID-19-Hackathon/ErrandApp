@@ -20,8 +20,6 @@ import android.widget.TextView;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.GeoPoint;
@@ -144,14 +142,15 @@ public class PostErrandRequestActivity extends FragmentActivity implements AddIt
 
         GeoPoint position = new GeoPoint(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude());
 
-        ErrandRequestModel errandRequest = new ErrandRequestModel(
+        ModelErrandRequest errandRequest = new ModelErrandRequest(
                 name,
                 position,
                 "PENDING",
                 vulnerable,
                 items,
                 reward,
-                mErrandId, categories);
+                mErrandId,
+                categories);
 
         database.postNewRequest(errandRequest);
 

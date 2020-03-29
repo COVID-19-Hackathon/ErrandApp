@@ -53,7 +53,7 @@ public class OngoingErrandsActivity extends FragmentActivity implements OnMapRea
     // location retrieved by the Fused Location Provider.
     private Location mLastKnownLocation;
 
-    private Map<String, OngoingErrandModel> markersMap = new HashMap<>();
+    private Map<String, ModelErrandOngoing> markersMap = new HashMap<>();
 
 
 
@@ -149,14 +149,14 @@ public class OngoingErrandsActivity extends FragmentActivity implements OnMapRea
         }
     }
 
-    private void updateNearbyErrands(List<OngoingErrandModel> errandsList) {
+    private void updateNearbyErrands(List<ModelErrandOngoing> errandsList) {
         int height = 100;
         int width = 100;
         Bitmap b = BitmapFactory.decodeResource(getResources(), R.drawable.map_icon);
         Bitmap smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
         BitmapDescriptor smallMarkerIcon = BitmapDescriptorFactory.fromBitmap(smallMarker);
 
-        for (OngoingErrandModel model : errandsList) {
+        for (ModelErrandOngoing model : errandsList) {
 
             double latitude = model.getVolunteerPosition().getLatitude();
             double longitude = model.getVolunteerPosition().getLongitude();
@@ -186,9 +186,12 @@ public class OngoingErrandsActivity extends FragmentActivity implements OnMapRea
 
         database.retreiveOngoingErrands(new DatabaseListener() {
             @Override
-            public void onOngoingErrandsFetchComplete(List<OngoingErrandModel> list) {
+            public void onOngoingErrandsFetchComplete(List<ModelErrandOngoing> list) {
                 updateNearbyErrands(list);
             }
+
+            @Override
+            public void onOngoingRequestsFetchComplete(List<ModelErrandRequest> list) {}
         });
 
         /*HashMap<String, Pair<Float, Float>> map = new HashMap<>();
@@ -200,7 +203,7 @@ public class OngoingErrandsActivity extends FragmentActivity implements OnMapRea
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-        OngoingErrandModel model = markersMap.get(marker.getId());
+        ModelErrandOngoing model = markersMap.get(marker.getId());
         FragmentManager fm = getSupportFragmentManager();
         RequestErrandDialog alertDialog = new RequestErrandDialog(model);
         alertDialog.show(fm, "map_dialog");

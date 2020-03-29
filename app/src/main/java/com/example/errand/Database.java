@@ -25,7 +25,7 @@ public class Database {
     private FirebaseFirestore database = FirebaseFirestore.getInstance();
 
     public void retreiveOngoingErrands(final DatabaseListener listener) {
-        final List<OngoingErrandModel> oeArray = new ArrayList<>();
+        final List<ModelErrandOngoing> oeArray = new ArrayList<>();
         database.collection("ongoing_errands")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -44,7 +44,7 @@ public class Database {
                                 String reward = document.getString("MinimumReward");
                                 Timestamp startTime = document.getTimestamp("StartTime");
 
-                                OngoingErrandModel oe = new OngoingErrandModel(ongoingErrandId,volunteerId,store,waitTime,gp,category,name,reward,startTime);
+                                ModelErrandOngoing oe = new ModelErrandOngoing(ongoingErrandId,volunteerId,store,waitTime,gp,category,name,reward,startTime);
                                 oeArray.add(oe);
                             }
                             listener.onOngoingErrandsFetchComplete(oeArray);
@@ -56,8 +56,8 @@ public class Database {
                 });
     }
 
-    public List<ErrandRequestModel> retreiveOngoingRequests() {
-        final List<ErrandRequestModel> prArray = new ArrayList<>();
+    public void retreiveOngoingRequests(final DatabaseListener databaseListener) {
+        final List<ModelErrandRequest> prArray = new ArrayList<>();
         database.collection("posted_errands")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -75,19 +75,19 @@ public class Database {
                                 boolean requesterIsVulnerable = document.getBoolean("request_is_vulnerable");
                                 String categories = document.getString("categories");
 
-                                ErrandRequestModel pr = new ErrandRequestModel(requesterName,requesterPosition,acceptedStatus,requesterIsVulnerable, items, reward,ongoingErrandId,categories);
+                                ModelErrandRequest pr = new ModelErrandRequest(requesterName,requesterPosition,acceptedStatus,requesterIsVulnerable, items, reward,ongoingErrandId,categories);
                                 prArray.add(pr);
                             }
+                            databaseListener.onOngoingRequestsFetchComplete(prArray);
                         } else {
                             Log.w("TAG", "Error getting documents.", task.getException());
                         }
                     }
                 });
-        return prArray;
     }
 
 
-    public void postOngoingErrands(final OngoingErrandModel oe) {
+    public void postOngoingErrands(final ModelErrandOngoing oe) {
         Map<String, Object> data = new HashMap<>();
         data.put("volunteer_id", oe.getVolunteerId());
         data.put("store", oe.getStore());
@@ -118,7 +118,7 @@ public class Database {
     }
 
 
-    public void postNewRequest(final ErrandRequestModel er) {
+    public void postNewRequest(final ModelErrandRequest er) {
         Map<String, Object> data = new HashMap<>();
         data.put("ongoing_errand_id", er.getOngoingErrandId());
         data.put("requester_name", er.getRequesterName());

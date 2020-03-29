@@ -2,7 +2,7 @@ package com.example.errand;
 
 import com.google.firebase.firestore.GeoPoint;
 
-public class ErrandRequestModel {
+public class ModelErrandRequest {
 
     private String requesterName;
     private GeoPoint requesterPosition;
@@ -27,7 +27,7 @@ public class ErrandRequestModel {
                 '}';
     }
 
-    public ErrandRequestModel(String requesterName, GeoPoint requesterPosition, String acceptedStatus, boolean requesterIsVulnerable, String items, String reward, String ongoingErrandId, String categories) {
+    public ModelErrandRequest(String requesterName, GeoPoint requesterPosition, String acceptedStatus, boolean requesterIsVulnerable, String items, String reward, String ongoingErrandId, String categories) {
         this.requesterName = requesterName;
         this.requesterPosition = requesterPosition;
         this.acceptedStatus = acceptedStatus;

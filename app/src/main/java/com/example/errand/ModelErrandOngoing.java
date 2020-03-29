@@ -3,7 +3,7 @@ package com.example.errand;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.GeoPoint;
 
-public class OngoingErrandModel {
+public class ModelErrandOngoing {
     private String ongoingErrandId;
     private String volunteerId;
     private String store;
@@ -33,7 +33,7 @@ public class OngoingErrandModel {
                 '}';
     }
 
-    public OngoingErrandModel(String ongoingErrandId, String volunteerId, String store, long wait_time, GeoPoint voulnteerPosition, String category, String name, String reward, Timestamp time) {
+    public ModelErrandOngoing(String ongoingErrandId, String volunteerId, String store, long wait_time, GeoPoint voulnteerPosition, String category, String name, String reward, Timestamp time) {
         this.ongoingErrandId = ongoingErrandId;
         this.volunteerId = volunteerId;
         this.store = store;

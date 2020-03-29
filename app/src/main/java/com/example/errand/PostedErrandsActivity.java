@@ -22,11 +22,16 @@ public class PostedErrandsActivity extends Activity {
         Database databaseManager = new Database();
         databaseManager.retreiveOngoingErrands(new DatabaseListener() {
             @Override
-            public void onOngoingErrandsFetchComplete(List<OngoingErrandModel> list) {
-                for (OngoingErrandModel errand : list) {
+            public void onOngoingErrandsFetchComplete(List<ModelErrandOngoing> list) {
+                for (ModelErrandOngoing errand : list) {
 
 
                 }
+            }
+
+            @Override
+            public void onOngoingRequestsFetchComplete(List<ModelErrandRequest> list) {
+
             }
         });
 
