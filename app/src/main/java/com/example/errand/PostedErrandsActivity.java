@@ -27,6 +27,8 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.List;
+
 public class PostedErrandsActivity extends Activity {
 
     PostedErrandsActivity getActivity() {
@@ -92,7 +94,7 @@ public class PostedErrandsActivity extends Activity {
                     buttonLayout.setPadding(30, 30, 30, 30);
                     buttonLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
                     buttonLayout.setOrientation(LinearLayout.HORIZONTAL);
-                    buttonLayout.setBackgroundResource(R.drawable.custom_button_1);
+                    //buttonLayout.setBackgroundResource(R.drawable.custom_button_1);
 //                                buttonLayout.setId();
                     buttonLayout.addView(textViewLeft);
                     buttonLayout.addView(textViewRight);
