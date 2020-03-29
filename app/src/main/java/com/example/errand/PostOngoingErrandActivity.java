@@ -85,6 +85,9 @@ public class PostOngoingErrandActivity extends FragmentActivity {
         EditText storeEditText = findViewById(R.id.store_edit_text);
         String store = storeEditText.getText().toString();
 
+        EditText dateEditText = findViewById(R.id.time_edit_text);
+        String date = dateEditText.getText().toString();
+
         EditText rewardEditText = findViewById(R.id.reward_edit_text);
         String reward = rewardEditText.getText().toString();
 
@@ -114,12 +117,12 @@ public class PostOngoingErrandActivity extends FragmentActivity {
             categories = categories + separator +  "Other";
         }
 
-        GeoPoint position = new GeoPoint(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude());
+        double random = 0.001 + Math.random() * (0.004);
+        GeoPoint position = new GeoPoint(mLastKnownLocation.getLatitude() + random, mLastKnownLocation.getLongitude() + random);
 
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         String id = sharedPref.getString("AccountID", "");
 
-        //TODO: change wait time - user voulnteer id from google - remove timestamp
         ModelErrandOngoing errandOngoing = new ModelErrandOngoing(
                 "",
                 id,
@@ -128,7 +131,7 @@ public class PostOngoingErrandActivity extends FragmentActivity {
                 categories,
                 name,
                 reward,
-                "30/03/2020"
+                date
         );
 
         database.postOngoingErrands(errandOngoing);

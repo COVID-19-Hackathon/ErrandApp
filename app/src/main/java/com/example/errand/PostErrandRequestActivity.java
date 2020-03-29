@@ -7,9 +7,11 @@ import androidx.fragment.app.FragmentManager;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
@@ -140,7 +142,11 @@ public class PostErrandRequestActivity extends FragmentActivity implements AddIt
             items = items + separator + item.toString();
         }
 
-        GeoPoint position = new GeoPoint(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude());
+        double random = 0.001 + Math.random() * (0.004);
+        GeoPoint position = new GeoPoint(mLastKnownLocation.getLatitude() + random, mLastKnownLocation.getLongitude() + random);
+
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        String id = sharedPref.getString("AccountID", "");
 
         ModelErrandRequest errandRequest = new ModelErrandRequest(
                 name,
@@ -151,7 +157,7 @@ public class PostErrandRequestActivity extends FragmentActivity implements AddIt
                 reward,
                 mErrandId,
                 categories,
-                ""); // PersonID o be filled here
+                id); // PersonID o be filled here
 
         database.postNewRequest(errandRequest);
 

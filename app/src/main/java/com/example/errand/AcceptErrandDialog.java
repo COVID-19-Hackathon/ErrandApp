@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import androidx.fragment.app.DialogFragment;
 
+import org.w3c.dom.Text;
+
 public class AcceptErrandDialog extends DialogFragment {
 
     private ModelErrandRequest mModel;
@@ -43,6 +45,12 @@ public class AcceptErrandDialog extends DialogFragment {
         TextView reward = layout.findViewById(R.id.text_view_categories);
         reward.setText(mModel.getCategories());
 
+        TextView vulnerable = layout.findViewById(R.id.vulnerable_text);
+        if (mModel.isRequesterIsVulnerable()) {
+            vulnerable.setVisibility(View.VISIBLE);
+        } else {
+            vulnerable.setVisibility(View.INVISIBLE);
+        }
 
         layout.findViewById(R.id.post_request).setOnClickListener(new View.OnClickListener() {
             @Override

@@ -35,8 +35,8 @@ public class RequestErrandDialog extends DialogFragment {
         TextView name = layout.findViewById(R.id.name_text_view);
         name.setText(mModel.getName());
 
-        TextView time = layout.findViewById(R.id.items_text_view);
-        time.setText(mModel.toString());
+        TextView time = layout.findViewById(R.id.date_text_view);
+        time.setText(mModel.getDate());
 
         TextView store = layout.findViewById(R.id.store_text_view);
         store.setText(mModel.getStore());

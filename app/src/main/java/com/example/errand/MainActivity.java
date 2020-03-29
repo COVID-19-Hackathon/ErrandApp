@@ -174,7 +174,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         // Create an explicit intent for an Activity in your app
         Intent intent = new Intent(this, OngoingRequestsActivity.class);
-        intent.putExtra("Name", "Mike");
+        intent.putExtra("Name", "Shreyas");
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
 
@@ -183,26 +183,26 @@ public class MainActivity extends Activity implements View.OnClickListener {
         Bitmap b = BitmapFactory.decodeResource(getResources(), R.drawable.map_icon);
         Bitmap smallerIcon = Bitmap.createScaledBitmap(b, width, height, false);
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
+        /*NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setSmallIcon(R.drawable.e)
                 .setContentTitle("Errand request")
                 .setStyle(new NotificationCompat.BigTextStyle()
-                        .bigText("Mike just sent you an errand request! Click to see it"))
+                        .bigText("Shreyas just sent you an errand request! Click to see it"))
                 .setContentIntent(pendingIntent)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setLargeIcon(smallerIcon)
-                .setAutoCancel(true);
+                .setAutoCancel(true);*/
 
 
-        /*NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setSmallIcon(R.drawable.e)
                 .setContentTitle("Errand accepted")
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setLargeIcon(smallerIcon)
                 .setStyle(new NotificationCompat.BigTextStyle()
-                        .bigText("Tom will do the errand you requested, he will be going to Target at 9pm, you should get your stuff sometime later that day!"));
+                        .bigText("Mothil will do the errand you requested, he will be going to Target at 9pm, you should get your stuff sometime later that day!"));
 
-         */
+
         // Show:
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
         // notificationId is a unique int for each notification that you must define
