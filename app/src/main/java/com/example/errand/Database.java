@@ -21,10 +21,11 @@ import java.util.List;
 import java.util.Map;
 
 public class Database {
+
     private FirebaseFirestore database = FirebaseFirestore.getInstance();
 
-    public List<ongoingErrand> retreiveOngoingErrands() {
-        final List<ongoingErrand> oeArray = new ArrayList<>();
+    public void retreiveOngoingErrands(final DatabaseListener listener) {
+        final List<OngoingErrandModel> oeArray = new ArrayList<>();
         database.collection("ongoing_errands")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -38,19 +39,25 @@ public class Database {
                                 String store =  document.getString("store");
                                 long waitTime =  document.getLong("wait_time");
                                 GeoPoint gp = document.getGeoPoint("start_gps_position");
-                                ongoingErrand oe = new ongoingErrand(ongoingErrandId,volunteerId,store,waitTime,gp);
+                                String category = document.getString("category");
+                                String name = document.getString("name");
+                                long reward = document.getLong("MinimumReward");
+                                Timestamp startTime = document.getTimestamp("StartTime");
+
+                                OngoingErrandModel oe = new OngoingErrandModel(ongoingErrandId,volunteerId,store,waitTime,gp,category,name,reward,startTime);
                                 oeArray.add(oe);
                             }
+                            listener.onOngoingErrandsFetchComplete(oeArray);
+
                         } else {
                             Log.w("TAG", "Error getting documents.", task.getException());
                         }
                     }
                 });
-            return oeArray;
     }
 
-    public List<errandRequest> retreiveOngoingRequests() {
-        final List<errandRequest> prArray = new ArrayList<>();
+    public List<ErrandRequestModel> retreiveOngoingRequests() {
+        final List<ErrandRequestModel> prArray = new ArrayList<>();
         database.collection("posted_errands")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -68,7 +75,7 @@ public class Database {
                                 long errandCost = document.getLong("errand_cost");
                                 String acceptedStatus = document.getString("accepted_status");
                                 String comments = document.getString("comments");
-                                errandRequest pr = new errandRequest(volunteerId,acceptedStatus,store,allowedServiceTime,comments,errandCost,errandId,distance,gp);
+                                ErrandRequestModel pr = new ErrandRequestModel(volunteerId,acceptedStatus,store,allowedServiceTime,comments,errandCost,errandId,distance,gp);
                                 prArray.add(pr);
                             }
                         } else {
@@ -80,7 +87,7 @@ public class Database {
     }
 
 
-    public void postOngoingErrands(final ongoingErrand oe) {
+    public void postOngoingErrands(final OngoingErrandModel oe) {
         Map<String, Object> data = new HashMap<>();
         data.put("volunteer_id", oe.getVolunteerId());
         data.put("store", oe.getStore());
@@ -88,6 +95,10 @@ public class Database {
         data.put("sys_creation_date", Timestamp.now());
         data.put("sys_update_date", null);
         data.put("wait_time", oe.getWait_time());
+        data.put("category",oe.getCategory());
+        data.put("MinimumReward",oe.getReward());
+        data.put("StartTime",oe.getTime());
+        data.put("name",oe.getName());
 
         database.collection("ongoing_errands")
                 .add(data)
@@ -107,7 +118,7 @@ public class Database {
     }
 
 
-    public void postNewRequest(final errandRequest er) {
+    public void postNewRequest(final ErrandRequestModel er) {
         Map<String, Object> data = new HashMap<>();
         data.put("volunteer_id", er.getVolunteerId());
         data.put("store", er.getStore());
