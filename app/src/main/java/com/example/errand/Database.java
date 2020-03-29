@@ -41,7 +41,7 @@ public class Database {
                                 GeoPoint gp = document.getGeoPoint("start_gps_position");
                                 String category = document.getString("category");
                                 String name = document.getString("name");
-                                long reward = document.getLong("MinimumReward");
+                                String reward = document.getString("MinimumReward");
                                 Timestamp startTime = document.getTimestamp("StartTime");
 
                                 OngoingErrandModel oe = new OngoingErrandModel(ongoingErrandId,volunteerId,store,waitTime,gp,category,name,reward,startTime);

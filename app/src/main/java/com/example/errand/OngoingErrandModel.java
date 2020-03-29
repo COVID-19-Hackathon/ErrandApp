@@ -3,9 +3,6 @@ package com.example.errand;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.GeoPoint;
 
-import java.sql.Time;
-import java.util.Date;
-
 public class OngoingErrandModel {
     private String ongoingErrandId;
     private String volunteerId;
@@ -14,7 +11,7 @@ public class OngoingErrandModel {
     private GeoPoint gp;
     private String category;
     private String name;
-    private long reward;
+    private String reward;
     private Timestamp time;
 
     public void setOngoingErrandId(String ongoingErrandId) {
@@ -36,7 +33,7 @@ public class OngoingErrandModel {
                 '}';
     }
 
-    public OngoingErrandModel(String ongoingErrandId, String volunteerId, String store, long wait_time, GeoPoint gp, String category, String name, long reward, Timestamp time) {
+    public OngoingErrandModel(String ongoingErrandId, String volunteerId, String store, long wait_time, GeoPoint gp, String category, String name, String reward, Timestamp time) {
         this.ongoingErrandId = ongoingErrandId;
         this.volunteerId = volunteerId;
         this.store = store;
@@ -56,7 +53,7 @@ public class OngoingErrandModel {
         return name;
     }
 
-    public long getReward() {
+    public String getReward() {
         return reward;
     }
 
