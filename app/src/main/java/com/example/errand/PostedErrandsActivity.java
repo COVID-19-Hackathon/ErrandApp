@@ -1,36 +1,10 @@
 package com.example.errand;
 
 import android.app.Activity;
-import android.graphics.Color;
-import android.graphics.Typeface;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
-import android.text.Layout;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
-import android.text.style.AlignmentSpan;
-import android.text.style.BulletSpan;
-import android.text.style.ForegroundColorSpan;
-import android.text.style.StyleSpan;
-import android.view.Gravity;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
-
-import java.util.Objects;
+import java.util.List;
 
 public class PostedErrandsActivity extends Activity {
 
@@ -45,7 +19,20 @@ public class PostedErrandsActivity extends Activity {
 
         final LinearLayout posted_req_layout = findViewById(R.id.posted_reqs_layout);
 
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        Database databaseManager = new Database();
+        databaseManager.retreiveOngoingErrands(new DatabaseListener() {
+            @Override
+            public void onOngoingErrandsFetchComplete(List<OngoingErrandModel> list) {
+                for (OngoingErrandModel errand : list) {
+
+
+                }
+            }
+        });
+
+
+
+        /*FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("posted_errands")
 //                .whereEqualTo("volunteer_id", 1)
                 .orderBy("sys_creation_date", Query.Direction.DESCENDING)
@@ -55,7 +42,6 @@ public class PostedErrandsActivity extends Activity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                System.out.println("Mothil");
                                 Button textButton = new Button(getActivity());
                                 String store = (String) document.get("store");
                                 String comments = (String) document.get("comments");
@@ -108,10 +94,9 @@ public class PostedErrandsActivity extends Activity {
 //                                Log.d(TAG, document.getId() + " => " + document.getData());
                             }
                         } else {
-                            System.out.println("PRABU");
 //                            Log.d(TAG, "Error getting documents: ", task.getException());
                         }
                     }
-                });
+                }); */
     }
 }

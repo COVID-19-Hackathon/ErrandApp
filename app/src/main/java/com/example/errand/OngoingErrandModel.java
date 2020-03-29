@@ -2,7 +2,7 @@ package com.example.errand;
 
 import com.google.firebase.firestore.GeoPoint;
 
-public class ongoingErrand {
+public class OngoingErrandModel {
     private String ongoingErrandId;
     private String volunteerId;
     private String store;
@@ -25,7 +25,7 @@ public class ongoingErrand {
                 '}';
     }
 
-    public ongoingErrand(String ongoingErrandId, String volunteerId, String store, long wait_time, GeoPoint gp) {
+    public OngoingErrandModel(String ongoingErrandId, String volunteerId, String store, long wait_time, GeoPoint gp) {
         this.ongoingErrandId = ongoingErrandId;
         this.volunteerId = volunteerId;
         this.store = store;
