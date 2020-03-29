@@ -19,7 +19,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name=".PostErrandActivity" />
+        <activity android:name=".PostErrandRequestActivity" />
         <activity android:name=".NeedErrandActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -28,6 +28,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".OngoingRequestsActivity" />
+        <activity android:name=".DoingErrandActivity" />
+        <activity android:name=".PostOngoingErrandActivity" />
     </application>
 
 </manifest>

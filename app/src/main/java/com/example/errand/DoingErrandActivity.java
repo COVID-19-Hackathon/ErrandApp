@@ -5,17 +5,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-public class NeedErrandActivity extends Activity {
+public class DoingErrandActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_need_errand);
+        setContentView(R.layout.activity_doing_errand);
 
         findViewById(R.id.post_errand_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(NeedErrandActivity.this, PostErrandRequestActivity.class);
+                Intent intent = new Intent(DoingErrandActivity.this, PostOngoingErrandActivity.class);
                 startActivity(intent);
             }
         });
@@ -23,15 +23,7 @@ public class NeedErrandActivity extends Activity {
         findViewById(R.id.search_ongoing_requests_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(NeedErrandActivity.this, OngoingErrandsActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        findViewById(R.id.see_requests_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(NeedErrandActivity.this, PostedErrandsActivity.class);
+                Intent intent = new Intent(DoingErrandActivity.this, OngoingRequestsActivity.class);
                 startActivity(intent);
             }
         });
