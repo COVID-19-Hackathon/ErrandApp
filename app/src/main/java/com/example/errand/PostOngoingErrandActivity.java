@@ -1,10 +1,13 @@
 package com.example.errand;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
@@ -65,7 +68,7 @@ public class PostOngoingErrandActivity extends FragmentActivity {
             }
         });
 
-        findViewById(R.id.post_request).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.post_errand).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 postErrand();
@@ -113,10 +116,13 @@ public class PostOngoingErrandActivity extends FragmentActivity {
 
         GeoPoint position = new GeoPoint(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude());
 
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        String id = sharedPref.getString("AccountID", "");
+
         //TODO: change wait time - user voulnteer id from google - remove timestamp
         ModelErrandOngoing errandOngoing = new ModelErrandOngoing(
                 "",
-                "",
+                id,
                 store,
                 1000000,
                 position,
@@ -149,7 +155,6 @@ public class PostOngoingErrandActivity extends FragmentActivity {
                     @Override
                     public void onComplete(@NonNull Task<Location> task) {
                         if (task.isSuccessful()) {
-                            // Set the map's camera position to the current location of the device.
                             mLastKnownLocation = task.getResult();
                         } else {
                             Log.d("ERRAND", "Current location is null. Using defaults.");

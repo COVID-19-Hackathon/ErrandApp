@@ -9,13 +9,16 @@ import android.app.Activity;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -81,8 +84,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         super.onStart();
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         if (account != null) {
-            Log.e("TAG", account.getId());
-            Toast.makeText(this, "Signed as " + account.getEmail(), Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, "Signed as " + account.getEmail(), Toast.LENGTH_LONG).show();
             showSignIn(false);
         } else {
             showSignIn(true);
@@ -120,6 +122,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
             Log.e("TAG", account.getId());
+
+            SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putString("AccountID", account.getId());
+            editor.apply();
+
             Toast.makeText(this, "Signed as " + account.getEmail(), Toast.LENGTH_LONG).show();
             showSignIn(false);
         } catch (ApiException e) {
