@@ -73,8 +73,9 @@ public class Database {
                                 String acceptedStatus = document.getString("accepted_status");
                                 String items = document.getString("items");
                                 boolean requesterIsVulnerable = document.getBoolean("request_is_vulnerable");
+                                String categories = document.getString("categories");
 
-                                ErrandRequestModel pr = new ErrandRequestModel(requesterName,requesterPosition,acceptedStatus,requesterIsVulnerable, items, reward,ongoingErrandId);
+                                ErrandRequestModel pr = new ErrandRequestModel(requesterName,requesterPosition,acceptedStatus,requesterIsVulnerable, items, reward,ongoingErrandId,categories);
                                 prArray.add(pr);
                             }
                         } else {
@@ -126,6 +127,7 @@ public class Database {
         data.put("accepted_status", er.getAcceptedStatus());
         data.put("items", er.getItems());
         data.put("request_is_vulnerable", er.isRequesterIsVulnerable());
+        data.put("categories",er.getCategories());
 
         database.collection("posted_errands")
                 .add(data)

@@ -9,6 +9,9 @@ public class ErrandRequestModel {
     private String acceptedStatus;
     private boolean requesterIsVulnerable;
     private String items;
+    private String reward;
+    private String ongoingErrandId;
+    private String categories;
 
     @Override
     public String toString() {
@@ -20,11 +23,25 @@ public class ErrandRequestModel {
                 ", items='" + items + '\'' +
                 ", reward='" + reward + '\'' +
                 ", ongoingErrandId='" + ongoingErrandId + '\'' +
+                ", categories='" + categories + '\'' +
                 '}';
     }
 
-    private String reward;
-    private String ongoingErrandId;
+    public ErrandRequestModel(String requesterName, GeoPoint requesterPosition, String acceptedStatus, boolean requesterIsVulnerable, String items, String reward, String ongoingErrandId, String categories) {
+        this.requesterName = requesterName;
+        this.requesterPosition = requesterPosition;
+        this.acceptedStatus = acceptedStatus;
+        this.requesterIsVulnerable = requesterIsVulnerable;
+        this.items = items;
+        this.reward = reward;
+        this.ongoingErrandId = ongoingErrandId;
+        this.categories = categories;
+    }
+
+    public String getCategories() {
+        return categories;
+    }
+
 
     public String getRequesterName() {
         return requesterName;
@@ -54,13 +71,5 @@ public class ErrandRequestModel {
         return ongoingErrandId;
     }
 
-    public ErrandRequestModel(String requesterName, GeoPoint requesterPosition, String acceptedStatus, boolean requesterIsVulnerable, String items, String reward, String ongoingErrandId) {
-        this.requesterName = requesterName;
-        this.requesterPosition = requesterPosition;
-        this.acceptedStatus = acceptedStatus;
-        this.requesterIsVulnerable = requesterIsVulnerable;
-        this.items = items;
-        this.reward = reward;
-        this.ongoingErrandId = ongoingErrandId;
-    }
+
 }
