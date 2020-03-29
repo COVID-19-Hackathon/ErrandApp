@@ -20,7 +20,7 @@ public class DoingErrandActivity extends Activity {
             }
         });
 
-        findViewById(R.id.search_ongoing_requests_button).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.search_ongoing_errands_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(DoingErrandActivity.this, OngoingRequestsActivity.class);

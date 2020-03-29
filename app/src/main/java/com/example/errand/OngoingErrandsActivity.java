@@ -60,7 +60,7 @@ public class OngoingErrandsActivity extends FragmentActivity implements OnMapRea
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ongoing_errands);
+        setContentView(R.layout.activity_ongoing_errands_map);
 
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
