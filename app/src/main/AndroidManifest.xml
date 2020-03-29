@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/MyTheme">
-        <activity android:name=".TestActivity"></activity>
+        <activity android:name=".PostedErrandsActivity" />
         <activity android:name=".OngoingErrandsActivity" />
 
         <meta-data
