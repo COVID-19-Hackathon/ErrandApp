@@ -42,7 +42,7 @@ public class AcceptErrandDialog extends DialogFragment {
 
         TextView reward = layout.findViewById(R.id.text_view_categories);
         reward.setText(mModel.getCategories());
-        
+
 
         layout.findViewById(R.id.post_request).setOnClickListener(new View.OnClickListener() {
             @Override

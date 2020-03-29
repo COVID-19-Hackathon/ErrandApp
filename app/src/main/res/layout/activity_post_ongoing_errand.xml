@@ -7,7 +7,7 @@
     tools:context=".PostErrandRequestActivity">
 
     <EditText
-        android:id="@+id/editText7"
+        android:id="@+id/reward_edit_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
@@ -15,7 +15,7 @@
         android:hint="Reward"
         app:layout_constraintBottom_toBottomOf="@+id/help_button"
         app:layout_constraintEnd_toStartOf="@+id/help_button"
-        app:layout_constraintStart_toStartOf="@+id/editText6"
+        app:layout_constraintStart_toStartOf="@+id/time_edit_text"
         app:layout_constraintTop_toTopOf="@+id/help_button" />
 
     <ImageView
@@ -24,23 +24,23 @@
         android:layout_height="wrap_content"
         android:src="@android:drawable/ic_menu_help"
         app:layout_constraintBottom_toTopOf="@+id/textView10"
-        app:layout_constraintEnd_toEndOf="@+id/editText6"
-        app:layout_constraintTop_toBottomOf="@+id/editText6" />
+        app:layout_constraintEnd_toEndOf="@+id/time_edit_text"
+        app:layout_constraintTop_toBottomOf="@+id/time_edit_text" />
 
     <EditText
-        android:id="@+id/editText6"
+        android:id="@+id/time_edit_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Time"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/help_button"
-        app:layout_constraintEnd_toEndOf="@+id/editText3"
-        app:layout_constraintStart_toStartOf="@+id/editText3"
-        app:layout_constraintTop_toBottomOf="@+id/editText3" />
+        app:layout_constraintEnd_toEndOf="@+id/store_edit_text"
+        app:layout_constraintStart_toStartOf="@+id/store_edit_text"
+        app:layout_constraintTop_toBottomOf="@+id/store_edit_text" />
 
     <TextView
-        android:id="@+id/post_request"
+        android:id="@+id/post_errand"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/font"
@@ -121,9 +121,9 @@
         android:ems="10"
         android:hint="Name"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/editText3"
-        app:layout_constraintEnd_toEndOf="@+id/editText3"
-        app:layout_constraintStart_toStartOf="@+id/editText3"
+        app:layout_constraintBottom_toTopOf="@+id/store_edit_text"
+        app:layout_constraintEnd_toEndOf="@+id/store_edit_text"
+        app:layout_constraintStart_toStartOf="@+id/store_edit_text"
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
     <CheckBox
@@ -132,7 +132,7 @@
         android:layout_height="wrap_content"
         android:text="Groceries"
         android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@+id/post_request"
+        app:layout_constraintBottom_toTopOf="@+id/post_errand"
         app:layout_constraintEnd_toStartOf="@+id/food_checkbox"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView10" />
@@ -190,9 +190,9 @@
         android:layout_height="wrap_content"
         android:text="Store you are going:"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/editText3"
+        app:layout_constraintBottom_toBottomOf="@+id/store_edit_text"
         app:layout_constraintStart_toStartOf="@+id/textView9"
-        app:layout_constraintTop_toTopOf="@+id/editText3" />
+        app:layout_constraintTop_toTopOf="@+id/store_edit_text" />
 
     <TextView
         android:id="@+id/textView27"
@@ -200,9 +200,9 @@
         android:layout_height="wrap_content"
         android:text="Time you are going:"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/editText6"
+        app:layout_constraintBottom_toBottomOf="@+id/time_edit_text"
         app:layout_constraintStart_toStartOf="@+id/textView25"
-        app:layout_constraintTop_toTopOf="@+id/editText6" />
+        app:layout_constraintTop_toTopOf="@+id/time_edit_text" />
 
     <TextView
         android:id="@+id/textView31"
@@ -210,12 +210,12 @@
         android:layout_height="wrap_content"
         android:text="Minimum reward:"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/editText7"
+        app:layout_constraintBottom_toBottomOf="@+id/reward_edit_text"
         app:layout_constraintStart_toStartOf="@+id/textView27"
-        app:layout_constraintTop_toTopOf="@+id/editText7" />
+        app:layout_constraintTop_toTopOf="@+id/reward_edit_text" />
 
     <EditText
-        android:id="@+id/editText3"
+        android:id="@+id/store_edit_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
@@ -223,7 +223,7 @@
         android:ems="10"
         android:hint="Store"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/editText6"
+        app:layout_constraintBottom_toTopOf="@+id/time_edit_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/textView25"
