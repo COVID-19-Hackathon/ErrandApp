@@ -1,6 +1,5 @@
 package com.example.errand;
 
-import android.annotation.SuppressLint;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -50,11 +49,34 @@ public class Database {
             return oeArray;
     }
 
-    public List<ongoingErrand> retreiveOngoingRequests() {
-        /**
-         * Fill in your code Mothil
-         */
-        return null;
+    public List<errandRequest> retreiveOngoingRequests() {
+        final List<errandRequest> prArray = new ArrayList<>();
+        database.collection("posted_errands")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d("TAG", document.getId() + " => " + document.getData());
+                                String errandId =  document.getString("errand_id");
+                                String volunteerId =  document.getString("volunteer_id");
+                                String store =  document.getString("store");
+                                long allowedServiceTime =  document.getLong("allowed_service_time");
+                                GeoPoint gp = document.getGeoPoint("start_gps_position");
+                                long distance = document.getLong("rough_total_distance");
+                                long errandCost = document.getLong("errand_cost");
+                                String acceptedStatus = document.getString("accepted_status");
+                                String comments = document.getString("comments");
+                                errandRequest pr = new errandRequest(volunteerId,acceptedStatus,store,allowedServiceTime,comments,errandCost,errandId,distance,gp);
+                                prArray.add(pr);
+                            }
+                        } else {
+                            Log.w("TAG", "Error getting documents.", task.getException());
+                        }
+                    }
+                });
+        return prArray;
     }
 
 
@@ -84,5 +106,36 @@ public class Database {
                 });
     }
 
+
+    public void postNewRequest(final errandRequest er) {
+        Map<String, Object> data = new HashMap<>();
+        data.put("volunteer_id", er.getVolunteerId());
+        data.put("store", er.getStore());
+        data.put("start_gps_position", er.getStartPos());
+        data.put("sys_creation_date", Timestamp.now());
+        data.put("sys_update_date", null);
+        data.put("allowed_service_time", er.getAllowedServiceTime());
+        data.put("rough_total_distance", er.getDistance());
+        data.put("errand_id", er.getErrandId());
+        data.put("errand_cost",er.getErrandCost());
+        data.put("comments",er.getComments());
+        data.put("accepted_status",er.getAcceptedStatus());
+        data.put("accepted_by",null);
+
+        database.collection("posted_errands")
+                .add(data)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.e("TAG", "DocumentSnapshot written with ID: " + documentReference.getId());
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("TAG", "Error adding document", e);
+                    }
+                });
+    }
 
 }

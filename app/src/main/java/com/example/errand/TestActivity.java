@@ -9,6 +9,8 @@ import android.view.View;
 
 import com.google.firebase.firestore.GeoPoint;
 
+import java.util.List;
+
 public class TestActivity extends Activity {
 
 
@@ -22,8 +24,8 @@ public class TestActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Database postQuery = new Database();
-                ongoingErrand oe  = new ongoingErrand("test","uiouoiu","CVS", 500, new GeoPoint(12,12));
-                postQuery.postOngoingErrands(oe);
+                errandRequest er = new errandRequest("blah","ACCEPTED","SAFEWAY",100,"Get me my beer", (long) 10.3,"blah",20,new GeoPoint(5.66666,5.6666));
+                postQuery.postNewRequest(er);
             }
         });
 
