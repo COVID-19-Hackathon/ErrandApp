@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -89,6 +90,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         if (account != null) {
             Log.e("TAG", account.getId());
+            Toast.makeText(this, "Signed as " + account.getEmail(), Toast.LENGTH_LONG).show();
             showSignIn(false);
         } else {
             showSignIn(true);
@@ -126,6 +128,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
             Log.e("TAG", account.getId());
+            Toast.makeText(this, "Signed as " + account.getEmail(), Toast.LENGTH_LONG).show();
             showSignIn(false);
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
