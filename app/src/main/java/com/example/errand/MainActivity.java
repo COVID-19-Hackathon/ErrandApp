@@ -1,13 +1,11 @@
 package com.example.errand;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 
 import android.app.Activity;
-import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -18,13 +16,25 @@ import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 
-public class MainActivity extends Activity {
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.Task;
+
+public class MainActivity extends Activity implements View.OnClickListener {
 
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
 
     private static final String CHANNEL_ID = "ERRANDCHANNEL";
+
+    private GoogleSignInClient mGoogleSignInClient;
+
+    private static final int SIGN_IN = 231;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +42,10 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         getLocationPermission();
+
+        findViewById(R.id.sign_in_button).setOnClickListener(this);
+
+        configGoogleSignIn();
 
         findViewById(R.id.need_errand_button).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,6 +81,70 @@ public class MainActivity extends Activity {
                 showNotification();
             }
         }, 4000);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        if (account != null) {
+            Log.e("TAG", account.getId());
+            showSignIn(false);
+        } else {
+            showSignIn(true);
+        }
+    }
+
+    private void showSignIn(boolean show) {
+        int signInVisible = show ? View.VISIBLE : View.INVISIBLE;
+        int restVisible = show ? View.INVISIBLE : View.VISIBLE;
+        findViewById(R.id.sign_in_button).setVisibility(signInVisible);
+        findViewById(R.id.description_text_view).setVisibility(restVisible);
+        findViewById(R.id.make_errand_button).setVisibility(restVisible);
+        findViewById(R.id.need_errand_button).setVisibility(restVisible);
+    }
+
+    private void googlSignIn() {
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, SIGN_IN);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
+        if (requestCode == SIGN_IN) {
+            // The Task returned from this call is always completed, no need to attach
+            // a listener.
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            handleSignInResult(task);
+        }
+    }
+
+    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
+        try {
+            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+            Log.e("TAG", account.getId());
+            showSignIn(false);
+        } catch (ApiException e) {
+            // The ApiException status code indicates the detailed failure reason.
+            // Please refer to the GoogleSignInStatusCodes class reference for more information.
+            Log.w("ERRAND", "signInResult:failed code=" + e.getStatusCode());
+            showSignIn(true);
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        googlSignIn();
+    }
+
+    private void configGoogleSignIn() {
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
     }
 
     /**
@@ -143,4 +221,6 @@ public class MainActivity extends Activity {
             notificationManager.createNotificationChannel(channel);
         }
     }
+
+
 }
