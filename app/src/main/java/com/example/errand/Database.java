@@ -37,14 +37,13 @@ public class Database {
                                 String ongoingErrandId =  document.getId();
                                 String volunteerId =  document.getString("volunteer_id");
                                 String store =  document.getString("store");
-                                long waitTime =  document.getLong("wait_time");
                                 GeoPoint gp = document.getGeoPoint("start_gps_position");
                                 String category = document.getString("category");
                                 String name = document.getString("name");
                                 String reward = document.getString("MinimumReward");
-                                Timestamp startTime = document.getTimestamp("StartTime");
+                                String date = document.getString("Date");
 
-                                ModelErrandOngoing oe = new ModelErrandOngoing(ongoingErrandId,volunteerId,store,waitTime,gp,category,name,reward,startTime);
+                                ModelErrandOngoing oe = new ModelErrandOngoing(ongoingErrandId,volunteerId,store,gp,category,name,reward,date);
                                 oeArray.add(oe);
                             }
                             listener.onOngoingErrandsFetchComplete(oeArray);
@@ -74,8 +73,9 @@ public class Database {
                                 String items = document.getString("items");
                                 boolean requesterIsVulnerable = document.getBoolean("request_is_vulnerable");
                                 String categories = document.getString("categories");
+                                String personId = document.getString("person_id");
 
-                                ModelErrandRequest pr = new ModelErrandRequest(requesterName,requesterPosition,acceptedStatus,requesterIsVulnerable, items, reward,ongoingErrandId,categories);
+                                ModelErrandRequest pr = new ModelErrandRequest(requesterName,requesterPosition,acceptedStatus,requesterIsVulnerable, items, reward,ongoingErrandId,categories, personId);
                                 prArray.add(pr);
                             }
                             databaseListener.onOngoingRequestsFetchComplete(prArray);
@@ -94,10 +94,9 @@ public class Database {
         data.put("start_gps_position", oe.getVolunteerPosition());
         data.put("sys_creation_date", Timestamp.now());
         data.put("sys_update_date", null);
-        data.put("wait_time", oe.getWait_time());
         data.put("category",oe.getCategory());
         data.put("MinimumReward",oe.getReward());
-        data.put("StartTime",oe.getTime());
+        data.put("Date",oe.getDate());
         data.put("name",oe.getName());
 
         database.collection("ongoing_errands")
@@ -128,6 +127,7 @@ public class Database {
         data.put("items", er.getItems());
         data.put("request_is_vulnerable", er.isRequesterIsVulnerable());
         data.put("categories",er.getCategories());
+        data.put("person_id",er.getPersonId());
 
         database.collection("posted_errands")
                 .add(data)

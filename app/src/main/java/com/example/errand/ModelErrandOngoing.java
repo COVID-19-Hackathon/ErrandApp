@@ -7,12 +7,11 @@ public class ModelErrandOngoing {
     private String ongoingErrandId;
     private String volunteerId;
     private String store;
-    private long wait_time;
     private GeoPoint volunteerPosition;
     private String category;
     private String name;
     private String reward;
-    private Timestamp time;
+    private String date;
 
     public void setOngoingErrandId(String ongoingErrandId) {
         this.ongoingErrandId = ongoingErrandId;
@@ -24,25 +23,23 @@ public class ModelErrandOngoing {
                 "ongoingErrandId='" + ongoingErrandId + '\'' +
                 ", volunteerId='" + volunteerId + '\'' +
                 ", store='" + store + '\'' +
-                ", wait_time=" + wait_time +
                 ", gp=" + volunteerPosition +
                 ", category='" + category + '\'' +
                 ", name='" + name + '\'' +
                 ", reward=" + reward +
-                ", time=" + time +
+                ", date=" + date +
                 '}';
     }
 
-    public ModelErrandOngoing(String ongoingErrandId, String volunteerId, String store, long wait_time, GeoPoint voulnteerPosition, String category, String name, String reward, Timestamp time) {
+    public ModelErrandOngoing(String ongoingErrandId, String volunteerId, String store, GeoPoint voulnteerPosition, String category, String name, String reward, String date) {
         this.ongoingErrandId = ongoingErrandId;
         this.volunteerId = volunteerId;
         this.store = store;
-        this.wait_time = wait_time;
         this.volunteerPosition = voulnteerPosition;
         this.category = category;
         this.name = name;
         this.reward = reward;
-        this.time = time;
+        this.date = date;
     }
 
     public String getCategory() {
@@ -57,8 +54,8 @@ public class ModelErrandOngoing {
         return reward;
     }
 
-    public Timestamp getTime() {
-        return time;
+    public String getDate() {
+        return date;
     }
 
     public String getOngoingErrandId() {
@@ -71,10 +68,6 @@ public class ModelErrandOngoing {
 
     public String getStore() {
         return store;
-    }
-
-    public long getWait_time() {
-        return wait_time;
     }
 
     public GeoPoint getVolunteerPosition() {
