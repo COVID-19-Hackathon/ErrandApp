@@ -1,12 +1,16 @@
 package com.example.errand;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -14,6 +18,12 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.GeoPoint;
 
 import java.util.ArrayList;
@@ -26,10 +36,22 @@ public class PostErrandRequestActivity extends FragmentActivity implements AddIt
     String mErrandId = "";
     Database database = new Database();
 
+    private FusedLocationProviderClient mFusedLocationProviderClient;
+    private boolean mLocationPermissionGranted;
+    private Location mLastKnownLocation;
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_errand_request);
+
+        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        checkLocationPermission();
+        getDeviceLocation();
+
 
         if (getIntent().hasExtra("ErrandId")) {
             mErrandId = getIntent().getStringExtra("ErrandId");
@@ -120,7 +142,7 @@ public class PostErrandRequestActivity extends FragmentActivity implements AddIt
             items = items + separator + item.toString();
         }
 
-        GeoPoint position = new GeoPoint(80, 80);
+        GeoPoint position = new GeoPoint(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude());
 
         ErrandRequestModel errandRequest = new ErrandRequestModel(
                 name,
@@ -133,6 +155,39 @@ public class PostErrandRequestActivity extends FragmentActivity implements AddIt
 
         database.postNewRequest(errandRequest);
 
+    }
+
+    private void checkLocationPermission() {
+
+        mLocationPermissionGranted = ContextCompat.checkSelfPermission(this.getApplicationContext(),
+                android.Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED;
+    }
+
+    private void getDeviceLocation() {
+        /*
+         * Get the best and most recent location of the device, which may be null in rare
+         * cases when a location is not available.
+         */
+        try {
+            if (mLocationPermissionGranted) {
+                Task<Location> locationResult = mFusedLocationProviderClient.getLastLocation();
+                locationResult.addOnCompleteListener(this, new OnCompleteListener<Location>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Location> task) {
+                        if (task.isSuccessful()) {
+                            // Set the map's camera position to the current location of the device.
+                            mLastKnownLocation = task.getResult();
+                        } else {
+                            Log.d("ERRAND", "Current location is null. Using defaults.");
+                            Log.e("ERRAND", "Exception: %s", task.getException());
+                        }
+                    }
+                });
+            }
+        } catch (SecurityException e)  {
+            Log.e("Exception: %s", e.getMessage());
+        }
     }
 
     @Override
