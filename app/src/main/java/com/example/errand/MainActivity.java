@@ -64,15 +64,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
             }
         });
 
-        findViewById(R.id.test_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, TestActivity.class);
-                startActivity(intent);
-            }
-        });
-
-
         createNotificationChannel();
 
         final Handler handler = new Handler();
@@ -101,8 +92,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
         int signInVisible = show ? View.VISIBLE : View.INVISIBLE;
         int restVisible = show ? View.INVISIBLE : View.VISIBLE;
         findViewById(R.id.sign_in_button).setVisibility(signInVisible);
-        findViewById(R.id.description_text_view).setVisibility(restVisible);
-        findViewById(R.id.make_errand_button).setVisibility(restVisible);
+//        findViewById(R.id.description_text_view).setVisibility(signInVisible);
+    findViewById(R.id.make_errand_button).setVisibility(restVisible);
         findViewById(R.id.need_errand_button).setVisibility(restVisible);
     }
 

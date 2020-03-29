@@ -3,7 +3,6 @@ package com.example.errand;
 import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.text.Layout;
 import android.text.Spannable;
@@ -11,12 +10,10 @@ import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.AlignmentSpan;
-import android.text.style.BulletSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -29,8 +26,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-
-import java.util.Objects;
 
 public class PostedErrandsActivity extends Activity {
 
@@ -82,14 +77,14 @@ public class PostedErrandsActivity extends Activity {
                                 TextView textViewLeft = new TextView(getActivity());
                                 textViewLeft.setText(textToDisplayLeft);
                                 textViewLeft.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, 170));
-//                                textViewLeft.setBackgroundResource(R.drawable.custom_button_1);
+//                                textViewLeft.setBackgroundResource(R.drawable.custom_button_listview);
                                 textViewLeft.setTextSize(18f);
                                 textViewLeft.setGravity(Gravity.START);
 
 
                                 TextView textViewRight = new TextView(getActivity());
                                 textViewRight.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 170));
-//                                textViewRight.setBackgroundResource(R.drawable.custom_button_1);
+//                                textViewRight.setBackgroundResource(R.drawable.custom_button_listview);
                                 textViewRight.setTextSize(18f);
                                 textViewRight.setGravity(Gravity.END);
                                 textViewRight.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_END);
@@ -99,7 +94,7 @@ public class PostedErrandsActivity extends Activity {
                                 buttonLayout.setPadding(30, 30, 30, 30);
                                 buttonLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
                                 buttonLayout.setOrientation(LinearLayout.HORIZONTAL);
-                                buttonLayout.setBackgroundResource(R.drawable.custom_button_1);
+                                buttonLayout.setBackgroundResource(R.drawable.custom_button_listview);
 //                                buttonLayout.setId();
                                 buttonLayout.addView(textViewLeft);
                                 buttonLayout.addView(textViewRight);
