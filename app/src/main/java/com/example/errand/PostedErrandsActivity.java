@@ -14,18 +14,10 @@ import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
+import java.util.List;
 
 public class PostedErrandsActivity extends Activity {
 
@@ -36,29 +28,74 @@ public class PostedErrandsActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_posted_requests);
+        setContentView(R.layout.activity_posted_errands);
 
         final LinearLayout posted_req_layout = findViewById(R.id.posted_reqs_layout);
 
-        /*Database databaseManager = new Database();
+        Database databaseManager = new Database();
         databaseManager.retreiveOngoingErrands(new DatabaseListener() {
             @Override
             public void onOngoingErrandsFetchComplete(List<ModelErrandOngoing> list) {
                 for (ModelErrandOngoing errand : list) {
+                    String items = errand.getStore();
+                    String categories = errand.getDate();
+                    String status = "";
 
+                    Spannable store_span = new SpannableString(items);
+                    store_span.setSpan(new StyleSpan(Typeface.BOLD), 0, store_span.length(), store_span.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    store_span.setSpan(new ForegroundColorSpan(Color.parseColor("#1f6d43")), 0, store_span.length(), store_span.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                    Spannable comments_span = new SpannableString(categories);
+                    comments_span.setSpan(new ForegroundColorSpan(Color.parseColor("#1f6d43")), 0, comments_span.length(), comments_span.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                    Spannable status_span = new SpannableString(status);
+                    status_span.setSpan(new StyleSpan(Typeface.BOLD_ITALIC), 0, status_span.length(), status_span.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    status_span.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_OPPOSITE), 0, status_span.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    if (status != null && status.toLowerCase().contentEquals("pending")) {
+                        status_span.setSpan(new ForegroundColorSpan(Color.RED), 0, status_span.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    } else if (status != null) {
+                        status_span.setSpan(new ForegroundColorSpan(Color.GREEN), 0, status_span.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    }
+                    SpannableStringBuilder textToDisplayLeft = new SpannableStringBuilder();
+                    textToDisplayLeft.append(store_span).append("\n").append(comments_span);
+
+                    TextView textViewLeft = new TextView(getActivity());
+                    textViewLeft.setText(textToDisplayLeft);
+                    textViewLeft.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, 170));
+//                                textViewLeft.setBackgroundResource(R.drawable.custom_button_1);
+                    textViewLeft.setTextSize(18f);
+                    textViewLeft.setGravity(Gravity.START);
+
+
+                    TextView textViewRight = new TextView(getActivity());
+                    textViewRight.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 170));
+//                                textViewRight.setBackgroundResource(R.drawable.custom_button_1);
+                    textViewRight.setTextSize(18f);
+                    textViewRight.setGravity(Gravity.END);
+                    textViewRight.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_END);
+                    textViewRight.setText(status_span);
+
+                    LinearLayout buttonLayout = new LinearLayout(getActivity());
+                    buttonLayout.setPadding(30, 30, 30, 30);
+                    buttonLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
+                    buttonLayout.setOrientation(LinearLayout.HORIZONTAL);
+                    //buttonLayout.setBackgroundResource(R.drawable.custom_button_1);
+//                                buttonLayout.setId();
+                    buttonLayout.addView(textViewLeft);
+                    buttonLayout.addView(textViewRight);
+
+                    posted_req_layout.addView(buttonLayout);
 
                 }
             }
 
             @Override
-            public void onOngoingRequestsFetchComplete(List<ModelErrandRequest> list) {
-
-            }
-        });*/
+            public void onOngoingRequestsFetchComplete(List<ModelErrandRequest> list) {}
+        });
 
 
 
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        /*FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("posted_errands")
 //                .whereEqualTo("volunteer_id", 1)
                 .orderBy("sys_creation_date", Query.Direction.DESCENDING)
@@ -123,6 +160,6 @@ public class PostedErrandsActivity extends Activity {
 //                            Log.d(TAG, "Error getting documents: ", task.getException());
                         }
                     }
-                });
+                }); */
     }
 }
