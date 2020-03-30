@@ -13,6 +13,7 @@ The app was developed to tackle three challenges:
 People need food, medical supplies and other things but some find it too troubling and scary to step outside themselves. With ERRAND, they can:
 
 1.a) Post a list of supplies, quantity and how soon they need it through the app (or)
+
 1.b) Get a list of people who will be running their own errands soon and contact/request one among them who is convenient, to fetch a few things or supplies.
 
 The compassionate and healthy who want to help the others get through this and some who lost their jobs are looking for a source of income. With ERRAND, they can:
