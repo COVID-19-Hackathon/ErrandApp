@@ -75,7 +75,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             public void run() {
                 showNotification();
             }
-        }, 4000);
+        }, 3000);
     }
 
     @Override
@@ -173,7 +173,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         // Create an explicit intent for an Activity in your app
         Intent intent = new Intent(this, OngoingRequestsActivity.class);
-        intent.putExtra("Name", "Shreyas");
+        intent.putExtra("Name", "Tom");
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
 
@@ -186,11 +186,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 .setSmallIcon(R.drawable.e)
                 .setContentTitle("Errand request")
                 .setStyle(new NotificationCompat.BigTextStyle()
-                        .bigText("Shreyas just sent you an errand request! Click to see it"))
+                        .bigText("Tom just sent you an errand request! Click to see it"))
                 .setContentIntent(pendingIntent)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setLargeIcon(smallerIcon)
-                .setAutoCancel(true);*/
+                .setAutoCancel(true); */
 
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
@@ -199,7 +199,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setLargeIcon(smallerIcon)
                 .setStyle(new NotificationCompat.BigTextStyle()
-                        .bigText("Mothil will do the errand you requested, he will be going to Target at 9pm, you should get your stuff sometime later that day!"));
+                        .bigText("Susan will do the errand you requested, she will be going to Target at 11pm, you should get your stuff sometime later that day!"));
 
 
         // Show:
