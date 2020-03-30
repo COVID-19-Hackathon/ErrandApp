@@ -10,12 +10,15 @@ import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.AlignmentSpan;
+import android.text.style.BackgroundColorSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.core.content.ContextCompat;
 
 import java.util.List;
 
@@ -39,22 +42,25 @@ public class PostedErrandsActivity extends Activity {
                 for (ModelErrandOngoing errand : list) {
                     String items = errand.getStore();
                     String categories = errand.getDate();
-                    String status = "";
+                    String status = "";  // todo : remove cause there is no status for self
 
+                    int font_color = ContextCompat.getColor(getActivity(), R.color.font);
                     Spannable store_span = new SpannableString(items);
                     store_span.setSpan(new StyleSpan(Typeface.BOLD), 0, store_span.length(), store_span.SPAN_EXCLUSIVE_EXCLUSIVE);
-                    store_span.setSpan(new ForegroundColorSpan(Color.parseColor("#1f6d43")), 0, store_span.length(), store_span.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    store_span.setSpan(new ForegroundColorSpan(font_color), 0, store_span.length(), store_span.SPAN_EXCLUSIVE_EXCLUSIVE);
 
                     Spannable comments_span = new SpannableString(categories);
-                    comments_span.setSpan(new ForegroundColorSpan(Color.parseColor("#1f6d43")), 0, comments_span.length(), comments_span.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    comments_span.setSpan(new ForegroundColorSpan(font_color), 0, comments_span.length(), comments_span.SPAN_EXCLUSIVE_EXCLUSIVE);
 
                     Spannable status_span = new SpannableString(status);
                     status_span.setSpan(new StyleSpan(Typeface.BOLD_ITALIC), 0, status_span.length(), status_span.SPAN_EXCLUSIVE_EXCLUSIVE);
                     status_span.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_OPPOSITE), 0, status_span.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                     if (status != null && status.toLowerCase().contentEquals("pending")) {
-                        status_span.setSpan(new ForegroundColorSpan(Color.RED), 0, status_span.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                        status_span.setSpan(new ForegroundColorSpan(Color.WHITE), 0, status_span.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                        status_span.setSpan(new BackgroundColorSpan(Color.RED), 0, status_span.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                     } else if (status != null) {
-                        status_span.setSpan(new ForegroundColorSpan(Color.GREEN), 0, status_span.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                        status_span.setSpan(new ForegroundColorSpan(Color.WHITE), 0, status_span.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                        status_span.setSpan(new BackgroundColorSpan(Color.GREEN), 0, status_span.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                     }
                     SpannableStringBuilder textToDisplayLeft = new SpannableStringBuilder();
                     textToDisplayLeft.append(store_span).append("\n").append(comments_span);
@@ -62,14 +68,12 @@ public class PostedErrandsActivity extends Activity {
                     TextView textViewLeft = new TextView(getActivity());
                     textViewLeft.setText(textToDisplayLeft);
                     textViewLeft.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, 170));
-//                                textViewLeft.setBackgroundResource(R.drawable.custom_button_1);
                     textViewLeft.setTextSize(18f);
                     textViewLeft.setGravity(Gravity.START);
 
 
                     TextView textViewRight = new TextView(getActivity());
                     textViewRight.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 170));
-//                                textViewRight.setBackgroundResource(R.drawable.custom_button_1);
                     textViewRight.setTextSize(18f);
                     textViewRight.setGravity(Gravity.END);
                     textViewRight.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_END);
@@ -79,7 +83,7 @@ public class PostedErrandsActivity extends Activity {
                     buttonLayout.setPadding(30, 30, 30, 30);
                     buttonLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
                     buttonLayout.setOrientation(LinearLayout.HORIZONTAL);
-                    //buttonLayout.setBackgroundResource(R.drawable.custom_button_1);
+                    buttonLayout.setBackgroundResource(R.drawable.custom_button_listview);
 //                                buttonLayout.setId();
                     buttonLayout.addView(textViewLeft);
                     buttonLayout.addView(textViewRight);
