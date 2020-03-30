@@ -6,15 +6,17 @@ This hackathon proved as an incredible platform for us to be helpful in these tr
 
 ## What it does
 The app was developed to tackle three challenges: 
-1. Help get essentials, specific supplies to the ailing and delicate people
-2. Provide a source of income to people who lost their jobs
-3. Decrease the number of people running for supplies and help flatten the curve
+1. Help get essentials, specific supplies to the ailing and delicate people.
+2. Provide a source of income to people who lost their jobs.
+3. Decrease the number of people running for supplies and help flatten the curve.
 
 People need food, medical supplies and other things but some find it too troubling and scary to step outside themselves. With ERRAND, they can:
+
 1.a) Post a list of supplies, quantity and how soon they need it through the app (or)
 1.b) Get a list of people who will be running their own errands soon and contact/request one among them who is convenient, to fetch a few things or supplies.
 
 The compassionate and healthy who want to help the others get through this and some who lost their jobs are looking for a source of income. With ERRAND, they can:
+
 2.a) Look at the list of posted requests (from above - (1.a)) and run these errands for some mutually agreed tip or fee.
 
 The app combines errand runs in a neighborhood, so lesser number of people go to the supermarket therefore reducing exposure and fewer people get sick. At the same time the app helps vulnerable people such as the elderly and the infected to get deliveries as the services will be less overwhelmed.
